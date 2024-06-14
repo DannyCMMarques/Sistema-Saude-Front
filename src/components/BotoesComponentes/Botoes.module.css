@@ -1,0 +1,53 @@
+.btn {
+  transform: all 0, 6s;
+  text-align: center;
+  text-transform: uppercase;
+  border: none;
+  /* width: 125px; */
+  height: 40px;
+  border-radius: 5px;
+  cursor: pointer;
+  padding: 10px;
+  font-size: 16px;
+  background-color: transparent;
+  color: white;
+  font-weight: 500;
+}
+
+.botaoAzul {
+  background-color: #1c8098;
+}
+.botaoAzul:hover {
+  background-color: #0eacbf;
+}
+
+.botaoBranco {
+  background-color: white;
+  border: 1px solid #1c8098;
+}
+
+.botaoVerde {
+  background-color: green;
+}
+
+.corBranco {
+  color: white;
+}
+.corPreto {
+  color: black;
+}
+.corCinza {
+  color: gray;
+}
+
+.corAzul {
+  color: #1c8098;
+}
+
+@media (max-width: 450px) {
+  .btn {
+    width: 100px;
+    height: 35px;
+    font-size: 14px;
+  }
+}

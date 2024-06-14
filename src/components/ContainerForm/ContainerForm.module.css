@@ -1,0 +1,73 @@
+.containerForm {
+  display: inline-grid;
+  width: auto;
+  height: auto;
+}
+
+.formulario {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-gap: 25px;
+  grid-auto-rows: 60px;
+  padding: 7px;
+}
+
+.formGroup {
+  color: #72848c;
+  margin-bottom: 1%;
+  width: 100%;
+  max-width: 459px;
+}
+
+.formGroup input,
+.formGroup select,
+.formGroup option {
+  width: calc(100% - 0.5rem);
+
+  height: 2.1rem;
+}
+
+.formGroup label {
+  font-size: 13px;
+  display: inline-block;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+}
+
+.botao {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 330px;
+  height: 55px;
+  margin-top: 15px;
+}
+
+@media (max-width: 450px) {
+  .formulario {
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+    grid-gap: 15px;
+    grid-auto-rows: 80px;
+  }
+
+  .formGroup input:focus,
+  .formGroup select:focus,
+  .formGroup option:focus {
+    padding-left: 0px;
+  }
+  .formGroup input,
+  .formGroup select,
+  .formGroup option {
+    width: 90%;
+    padding-left: 0px;
+  }
+  .botao {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 260px;
+    height: 55px;
+    margin-left: 5px;
+  }
+}

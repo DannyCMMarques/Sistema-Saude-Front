@@ -1,0 +1,82 @@
+.container {
+  box-shadow: 0 9px 23px rgba(58, 55, 55, 0.09), 0 5px 5px rgba(0, 0, 0, 0.06) !important;
+  border-radius: 0.4167rem;
+  transition: box-shadow 0.7s cubic-bezier(0.25, 0.8, 0.25, 1) !important;
+  background-color: white;
+  background-clip: border-box;
+  width: 100%;
+  padding: 20px;
+  height: 100%;
+}
+
+.sessao1 {
+  display: flex;
+  flex-wrap: wrap; 
+  gap: 60px;
+  row-gap: 45px;
+  width: 100%;
+  height: 100%;
+}
+
+.sessao1 > *,
+.sessao2 > * {
+  flex: 1 1 calc(33.3333% - 50px); /* garante que cada item ocupe 1/3 do espaço menos o gap */
+  box-sizing: border-box; /* para incluir padding e border no tamanho total */
+}
+.sessao2{
+  display: flex;
+  flex-wrap: wrap; 
+  gap: 50px;
+  row-gap: 35px;
+  width: 100%;
+  height: 100%;
+}
+
+
+form {
+  width: 90%;
+  height: 100%;
+}
+
+.sessao1 div {
+  width: 100%;
+  height: 100%;
+}
+.sessao1 textarea {
+  width: 100%;
+}
+
+.sessao2 textarea{
+  width:100%;
+}
+.sessao1 label, 
+.sessao2 label {
+  font-size: 14px;
+  display: inline-block;
+  margin-bottom: 0.75rem;
+  font-weight: 500;
+  color: #72848c;
+}
+.sessao2 label {
+  font-size:16px;
+}
+
+.botaoMudar {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+}
+.sessao2 input {
+  width:100%;
+  height:25px;
+}
+
+.botoesSessao2{
+  width:100%;
+  margin-top:40px;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+}

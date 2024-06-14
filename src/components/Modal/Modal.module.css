@@ -1,0 +1,117 @@
+.modalContainer {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: rgba(0, 0, 0, 0.7);
+    z-index: 9999999999;
+  }
+  
+  .closeModal {
+    font-size: 24px;
+  }
+  
+  .tituloModal {
+    font-family: "IBM Plex Sans", sans-serif;
+    font-size: 25px;
+    font-weight: 500;
+    margin: 0;
+    padding: 10 
+  }
+  
+  .modalContentS {
+    box-shadow: 0 9px 23px rgba(0, 0, 0, 0.09), 0 5px 5px rgba(0, 0, 0, 0.06) !important;
+  border-radius: 0.4167rem;
+  transition: box-shadow 0.7s cubic-bezier(0.25, 0.8, 0.25, 1) !important;
+  background-color: white;
+  background-clip: border-box;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 600px;
+    padding: 20px;
+  }
+  
+  .modalContentM {
+    background: white;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 900px;
+    padding: 25px;
+    border-radius: 3px;
+  }
+  
+  .modalContentL {
+    background: white;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 70%;
+    padding: 25px;
+    border-radius: 3px;
+  }
+  
+  @media (max-width: 414px) {
+    .containerCard {
+      background-size: cover;
+      color: white;
+      padding: 20px;
+      position: relative;
+      overflow: hidden;
+      cursor: pointer;
+      transition: background-color 0.5s ease;
+      margin-bottom: 5%;
+    }
+  }
+  
+  @media (max-width: 430px) {
+    .modalContainer {
+      position: fixed;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background-color: rgba(0, 0, 0, 0.7);
+      z-index: 9999999999;
+    }
+  
+    .modalContentS {
+      background: white;
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 90%;
+      border-radius: 3px;
+      overflow: scroll;
+      max-height: 80%;
+      padding:8px;
+    }
+  
+    .modalContentM {
+      background: white;
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 90%;
+      padding: 25px;
+      border-radius: 3px;
+    }
+  
+    .modalContentL {
+      background: white;
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 90%;
+      padding: 25px;
+      border-radius: 3px;
+    }
+  }
