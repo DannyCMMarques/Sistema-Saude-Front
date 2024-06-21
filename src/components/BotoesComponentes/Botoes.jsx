@@ -1,10 +1,9 @@
 import React from 'react';
 import styles from './Botoes.module.css';
 
-const Botoes = ({ children, background, cor, type, onClick }) => {
+const Botoes = ({ children, background, cor, type, onClick,style }) => {
   let fundo = "";
   let corTexto = "";
-
   switch (background) {
     case "azul":
       fundo = styles.botaoAzul;
@@ -43,6 +42,7 @@ const Botoes = ({ children, background, cor, type, onClick }) => {
       className={`${styles.btn} ${fundo} ${corTexto}`}
       type={type}
       onClick={onClick}
+      style={style}
     >
       {children}
     </button>

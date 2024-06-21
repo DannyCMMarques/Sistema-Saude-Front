@@ -1,10 +1,13 @@
 import React from 'react';
+import ContainerMaster from '../../components/container';
+import SideMenu from '../../components/sideMenu';
 
 const Home = () => {
   return (
-    <div>
-      
-    </div>
+    <ContainerMaster>
+                      <SideMenu />
+
+    </ContainerMaster>
   );
 }
 

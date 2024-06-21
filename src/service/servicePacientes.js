@@ -14,13 +14,16 @@ const servicePacientes = () => {
   async function getPacientes() {
     return api.get("/paciente/listarPacientes");
   }
+  async function getPacientesID(id) {
+    return api.get(`/paciente/listarPacientes/${id}`);
+  }
 
   async function deletarPacientes(id) {
     return api.delete(`/paciente/deletarPaciente/${id}`);
   }
 
 
-  return { registrar, editar, getPacientes, deletarPacientes };
+  return { registrar, editar, getPacientes, deletarPacientes,getPacientesID };
 }
 
 export default servicePacientes;

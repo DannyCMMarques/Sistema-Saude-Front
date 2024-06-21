@@ -44,50 +44,52 @@
 }
 
 
-.iconesTabela{
-display: flex;
-justify-content: space-between;
-align-items: center;
-margin:0px
-
+.iconesTabela {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 0px
 }
+
 .buttonIconEdit,
 .buttonIconExibir,
-.buttonIconDelete{
+.buttonIconDelete {
   width: 100%;
-  margin-right:2px;
+  margin-right: 2px;
   height: 30px;
   padding: 4px;
   border-radius: 5px;
-  color:rgb(0, 0, 0);
+  color: rgb(0, 0, 0);
   display: flex;
   align-items: center;
   font-size: 1px;
 }
-.buttonIconDelete{
-  background-color:#fe7171c7;
+
+.buttonIconDelete {
+  background-color: #fe7171c7;
 }
-.buttonIconEdit{
+
+.buttonIconEdit {
   background-color: #0000ff87;
 }
-.buttonIconExibir{
+
+.buttonIconExibir {
   background-color: #abababbf;
 }
 
-.corpo:hover{
-  background-color: #e9ecef; 
-     cursor: pointer;
+.corpo:hover {
+  background-color: #e9ecef;
+  cursor: pointer;
 }
 
-.buttonSearch{
-    background: linear-gradient(to right, #0bace0, #2cd3c7);
-    width:50%;
-    border-radius: 5px;
-    padding:2px;
-    color:white;
-    height:40px;
-    margin:0px;
+.buttonSearch {
+  background: linear-gradient(to right, #0bace0, #2cd3c7);
+  width: 50%;
+  border-radius: 5px;
+  padding: 2px;
+  color: white;
+  height: 40px;
+  margin: 0px;
 
-    min-width:50px;
+  min-width: 50px;
 }
-

@@ -15,6 +15,7 @@ import Modal from "./../../components/Modal/Modal";
 import Pesquisar from "../../components/Pesquisar/Pesquisar.jsx";
 import servicePacientes from "../../service/servicePacientes.js";
 import { useQuery } from "@tanstack/react-query";
+import SideMenu from "../../components/sideMenu/index.jsx";
 const Pessoas = () => {
   const [modalOpen, setModalOpen] = useState(false);
   // const [mostrar, setMostrar] = useState(false);
@@ -46,8 +47,10 @@ const Pessoas = () => {
 
   return (
     <ContainerMaster>
+                      <SideMenu />
+
       <Modal size="small" isOpen={modalOpen} onClose={handleCloseModal}>
-        <ContainerForm onClick={handleCloseModal} />
+        <ContainerForm onClick={handleCloseModal}  type="Registrar"/>
       </Modal>
       <div className={styles.pacientes}>
         <div className={styles.containerInfoTitleButton}>

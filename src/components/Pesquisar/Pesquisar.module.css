@@ -16,12 +16,19 @@
  
   height: 2.4rem;
   
-  width: 100%;
+  width: 80%;
 }
 
 
 .divCompletaInput {
     width: 100%;
     display: flex;
-    gap: 20px
+}
+
+.buscarIconPes{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-left:-145px;
+  color:gray;
 }

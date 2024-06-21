@@ -13,7 +13,7 @@ const ContainerMaster = ({ children }) => {
     const calculateStyle = () => {
       const sideMenuWidth = isOpen ? 100 : 330;
       const contentWidth = window.innerWidth - sideMenuWidth;
-      const leftOffset = (window.innerWidth - contentWidth) / 3;
+      const leftOffset = (window.innerWidth - contentWidth) / 4;
       setContainerStyle({
         width: `calc(100% - ${sideMenuWidth}px)`,
         left: `${leftOffset}px`,

@@ -8,26 +8,25 @@ import { useQuery } from "@tanstack/react-query";
 const ConsultaTable = ({ onClick }) => {
   const [consultas, setConsultas] = useState([]);
   const useConsultService = serviceConsultas();
-  
+
   const { isPending, isError, data, error, refetch } = useQuery({
     queryKey: ['getConsultas'],
     queryFn: async () => {
       const data = await useConsultService.getConsultas();
-      return data
+      return data;
     },
   });
 
   useEffect(() => {
     if (data) {
-      console.log('oi')
-      setConsultas(data?.data?.consulta);
+      setConsultas(data?.data?.consulta || []); // Garanta que os dados existem e estão na estrutura correta
     }
   }, [data]);
 
   const columns = [
     {
       name: "Diagnostico",
-      selector: (row) => row.consulta.queixas,
+      selector: (row) => row.consulta.queixas, // Garanta que isso corresponde à estrutura dos dados
       sortable: true,
     },
     {
@@ -79,5 +78,6 @@ const ConsultaTable = ({ onClick }) => {
     />
   );
 };
+
 
 export default ConsultaTable;

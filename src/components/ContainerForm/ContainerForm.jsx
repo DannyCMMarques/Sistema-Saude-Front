@@ -9,6 +9,7 @@ import InputMask from "react-input-mask";
 import Botoes from "../BotoesComponentes/Botoes";
 import servicePacientes from "../../service/servicePacientes";
 import { useMutation } from "@tanstack/react-query";
+import { useQuery } from "@tanstack/react-query";
 
 const ContainerForm = ({ onClick, data, type }) => {
   const estados = mockEstado;
@@ -61,6 +62,14 @@ const ContainerForm = ({ onClick, data, type }) => {
   }, [data, type, reset]);
 
   const useServicePaciente = servicePacientes();
+  // const { isPending, isError, data, error, refetch } = useQuery({
+  //   queryKey: ['getPacientes'],
+  //   queryFn: async () => {
+  //     const data = await useServicePaciente.getPacientes();
+  //     return data
+  //   },
+  // });
+
   const fazerRegistro = useMutation({
     mutationFn: (payload) => useServicePaciente.registrar(payload),
     onSuccess: (response) => {
@@ -87,8 +96,11 @@ const ContainerForm = ({ onClick, data, type }) => {
   const onSubmit = (formData) => {
     if (type === "Editar") {
       editarRegistro.mutate(formData);
-    } else {
+    } else if (type === "Registrar") {
       fazerRegistro.mutate(formData);
+      reset();
+    } else {
+      return formData;
     }
   };
 
@@ -105,25 +117,42 @@ const ContainerForm = ({ onClick, data, type }) => {
           <input type="hidden" {...register("id")} />
           <div className={styles.formGroup}>
             <label htmlFor="Nome">Nome Completo: </label>
-            <input type="text" />
+            <input
+              type="text"
+              {...register("nome")}
+              readOnly={type === "Exibir"}
+            />
           </div>
 
           <div className={styles.formGroup}>
             <label htmlFor="Sexo">Sexo: </label>
-            <select {...register("sexo")} defaultValue={data?.sexo || ""}>
-              <option value="Masculino">Masculino</option>
-              <option value="Feminino">Feminino</option>
+            <select
+              {...register("sexo")}
+              defaultValue={data?.sexo || ""}
+              disabled={type === "Exibir"}
+            >
+              <option value="Masculino" readOnly={type === "Exibir"}>
+                Masculino
+              </option>
+              <option value="Feminino" readOnly={type === "Exibir"}>
+                Feminino
+              </option>
             </select>
           </div>
 
           <div className={styles.formGroup}>
             <label htmlFor="email">E-mail: </label>
-            <input type="email" {...register("email")} />
+            <input
+              type="email"
+              {...register("email")}
+              readOnly={type === "Exibir"}
+            />
           </div>
 
           <div className={styles.formGroup}>
             <label htmlFor="telefone">Telefone: </label>
             <InputMask
+              readOnly={type === "Exibir"}
               type="text"
               mask="(99)99999-9999"
               {...register("telefone")}
@@ -134,34 +163,58 @@ const ContainerForm = ({ onClick, data, type }) => {
 
           <div className={styles.formGroup}>
             <label htmlFor="ocupacao">Ocupação: </label>
-            <input type="text" {...register("ocupacao")} />
+            <input
+              type="text"
+              {...register("ocupacao")}
+              readOnly={type === "Exibir"}
+            />
           </div>
 
           <div className={styles.formGroup}>
             <label htmlFor="idade">Idade </label>
-            <input type="text" {...register("idade")} />
+            <input
+              type="text"
+              {...register("idade")}
+              readOnly={type === "Exibir"}
+            />
           </div>
 
           <div className={styles.formGroup}>
             <label htmlFor="endereco">Endereço Completo: </label>
-            <input type="text" {...register("endereco")} />
+            <input
+              type="text"
+              {...register("endereco")}
+              readOnly={type === "Exibir"}
+            />
           </div>
 
           <div className={styles.formGroup}>
             <label htmlFor="bairro">Bairro: </label>
-            <input type="text" {...register("bairro")} />
+            <input
+              type="text"
+              {...register("bairro")}
+              readOnly={type === "Exibir"}
+            />
           </div>
 
           <div className={styles.formGroup}>
             <label htmlFor="cidade">Cidade: </label>
-            <input type="text" {...register("cidade")} />
+            <input
+              type="text"
+              {...register("cidade")}
+              readOnly={type === "Exibir"}
+            />
           </div>
 
           <div className={styles.formGroup}>
             <label htmlFor="estado">Estado: </label>
-            <select {...register("estado")}>
+            <select {...register("estado")} disabled={type === "Exibir"}>
               {estados.map((estado) => (
-                <option key={estado.id} value={estado.sigla}>
+                <option
+                  key={estado.id}
+                  value={estado.sigla}
+                  readOnly={type === "Exibir"}
+                >
                   {estado.nome}
                 </option>
               ))}
@@ -175,6 +228,7 @@ const ContainerForm = ({ onClick, data, type }) => {
               mask="99999-999"
               {...register("cep")}
               defaultValue={data?.cep || ""}
+              readOnly={type === "Exibir"}
             />
           </div>
 
@@ -184,6 +238,7 @@ const ContainerForm = ({ onClick, data, type }) => {
               type="text"
               {...register("local")}
               defaultValue={data?.local || ""}
+              readOnly={type === "Exibir"}
             />
           </div>
         </div>

@@ -1,0 +1,178 @@
+.containerReceita {
+    box-shadow: 0 9px 23px rgba(58, 55, 55, 0.09), 0 5px 5px rgba(0, 0, 0, 0.06) !important;
+    border-radius: 0.4167rem;
+    transition: box-shadow 0.7s cubic-bezier(0.25, 0.8, 0.25, 1) !important;
+    background-color: white;
+    background-clip: border-box;
+    width: 75%;
+    min-height: 560px;
+    height: 100%;
+    margin-top: 50px;
+
+}
+
+
+.pesquisarNome {
+    display: flex;
+    align-items: center;
+    margin-bottom: 5px;
+}
+
+.receitaForm {
+    margin-top: 50px;
+}
+
+.icon_pesquisarNome {
+
+    position: absolute;
+    top: 10px;
+    right: 360px;
+}
+
+.pesquisarNome input {
+    width: 50%;
+    height: 35px;
+    margin-bottom: -35px;
+    font-size: 17px;
+
+}
+
+.formReceita {
+    width: 100%;
+    height: 100%;
+    min-height: 500px;
+
+}
+
+
+.namePaciente {
+    display: inline-block;
+    margin-bottom: 10px;
+
+}
+
+.namePaciente select {
+
+    width: 95%;
+    height: 25px;
+}
+
+.namePaciente button {
+    cursor: pointer;
+    font-size: 10px;
+    text-align: center;
+    padding-left: 7px;
+    background: transparent;
+    color: #72848c
+}
+
+.namePaciente button:hover {
+    color: red;
+}
+
+
+
+.topoFormulario,.sessao2 {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-gap: 25px;
+    grid-auto-rows: 60px;
+    padding-top: 30px;
+    width: 80%;
+}
+
+.topoFormulario input {
+    width: 100%;
+    height: 25px;
+}
+
+.topoFormulario label {
+    font-size: 15px;
+    margin-bottom: 0.75rem;
+    padding-left: 10px;
+
+}
+
+.dataReceita input {
+    width: 120%;
+    margin-left: -25px;
+}
+
+.textareaReceita {
+    width: 100%;
+    height: 100%;
+    margin-top: 40px;
+    display: flex;
+}
+
+.textareaReceita textarea {
+    width: 90%;
+    min-height: 195px;
+    height: 100px;
+}
+
+.baixarArq {
+    font-weight: bold;
+    text-decoration: underline;
+    display: flex;
+    align-content: center;
+    justify-content: center;
+    margin-top: 5px;
+    cursor: pointer;
+}
+
+.baixarArq:hover {
+    color: blue;
+    text-decoration: none;
+}
+
+.errors {
+
+    color: red;
+    text-align: left;
+    margin-top: 1px;
+    margin-bottom: 4px;
+    font-size: 13px;
+
+}
+
+@media (max-width:415px){
+
+    .containerReceita{
+        height: 100%;
+        margin: 0px;
+        border: 1px solid #d2d2d2;
+         box-shadow: 0 1px 0 0 #d2d2d2; 
+        padding: 0px;
+        box-sizing: content-box;
+        border-radius: 5px;
+        color: #495057;
+        font-size: 14px;
+        transition: all 0.2s;
+        width: 106%;
+    }
+    .dataReceita input{
+        width: 86%;
+        margin-left:0px;
+    }
+    .topoFormulario{
+        grid-template-columns: repeat(1, 1fr);
+      
+    }
+    .sessao2{
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        grid-gap: 13px;
+        grid-auto-rows: 58px;
+        /* padding-top: 30px; */
+        width: 81%;
+    }
+    .sessao2 input{
+        width:90%;
+        height: 25px;
+    }
+    .receitaForm {
+        margin-top: 30px;
+    }
+    
+}

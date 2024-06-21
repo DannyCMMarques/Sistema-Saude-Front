@@ -40,11 +40,30 @@ const successValidation = (data) =>
     theme: "light",
   });
 
+const ConsultaForm = ({ type }) => {
+  const location = useLocation();
+  const pathParts = location.pathname.split("/").filter((part) => part);
+  const [dataCon, setDataCon] = useState({});
 
+  let mode = "registrar";
+  let id = null;
 
+  if (pathParts.length === 3 && pathParts[1] === "editar") {
+    mode = "editar";
+    id = pathParts[2];
+  }
 
-const ConsultaForm = () => {
- const validationSchemaLogin = z.object({
+  const { tipoForm, setTipoForm } = useContext(ConsultaContext);
+
+  const [mudanca, setMudanca] = useState(true);
+
+  const mudarSessao = () => {
+    setMudanca(!mudanca);
+  };
+
+  const [resultado, setResultado] = useState("");
+
+  const validationSchemaLogin = z.object({
     diagnostico: z.string(),
     queixas: z.string(),
     historico: z.string(),
@@ -63,70 +82,20 @@ const ConsultaForm = () => {
     id_paciente: z.string(),
   });
 
- const {
+  const {
     register,
     handleSubmit,
     formState: { errors },
     reset,
-    clearErrors,
-    setValue
+    setValue,
   } = useForm({
     resolver: zodResolver(validationSchemaLogin),
-    defaultValues: {
-      diagnostico: "",
-      queixas: "",
-      historico: "",
-      historicopassado: "",
-      quais: "",
-      antecendentes: "",
-      peso: "",
-      altura: "",
-      imc: "",
-      pressaoD: "",
-      pressaoS: "",
-      temperatura: "",
-      observacoes: "",
-      observacoes2: "",
-    },
   });
 
-
-
-  const location = useLocation();
-  const pathParts = location.pathname.split("/").filter((part) => part);
-
-//   const [mode,setMode]= useState("")
-//  const [id,setId] =useState("")
-let mode = ""
-let id = ""
-if (pathParts.length >=3 && pathParts[1] === "editar") {
-    mode = "editar"
-    id = pathParts[2]
-    console.log(id)
-  } else if (pathParts.length === 3 && pathParts[1] === "exibir") {
-   mode= "exibir";
-    id=pathParts[2]
-  } else {
-    mode ="registrar";
-    id=""
-  }
-  
-  const [resultado, setResultado] = useState("");
-   const [mudanca, setMudanca] = useState(true);
-
-  const mudarSessao = () => {
-    setMudanca(!mudanca);
-  };
   const useServiceConsultas = serviceConsultas();
   const usePacienteService = servicePacientes();
 
-  //  const [dataCon, setDataCon] = useState([])
-
-  // const { tipoForm, setTipoForm } = useContext(ConsultaContext);
-  const [formData, setFormData] = useState("");
- 
-
-  const { isPending, isError, data, error, refetch } = useQuery({
+  const { data } = useQuery({
     queryKey: ["getPacientes"],
     queryFn: async () => {
       const data = await usePacienteService.getPacientes();
@@ -134,24 +103,32 @@ if (pathParts.length >=3 && pathParts[1] === "editar") {
     },
     enabled: true,
   });
+
+  const { data: consultaData, refetch: refetchConsulta } = useQuery({
+    queryKey: ["getConsultasId", id],
+    queryFn: async () => {
+      if (id !== null) {
+        const dataConsulta = await useServiceConsultas.getConsultasId(id);
+        setDataCon(dataConsulta.data[0]);
+        for (const key in dataConsulta.data[0]) {
+          setValue(key, dataConsulta.data[0][key]);
+        }
+        return dataConsulta.data;
+      }
+    },
+    enabled: !!id,
+  });
+
   const nomesFiltrados =
     data?.data.pacientes.filter((paciente) =>
       paciente.nome.toLowerCase().includes(resultado.toLowerCase())
     ) || [];
 
-    const { isPendingCon, isErrorCon, dataCon, errorCon, refetchCon } = useQuery({
-      queryKey: ["getConsultasId"],
-      queryFn: async () => {
-        const dataCon = await useServiceConsultas.getConsultasId(id);
-        return dataCon;
-      },
-      enabled: true,
-    });
- console.log(dataCon)
   const fazerRegistroConsultas = useMutation({
-    mutationFn: (payload) => useServiceConsultas.registrarConsulta(payload, payload.id_consulta),
-
-    // id ===null    : useServiceConsultas.editarConsultas(payload, payload.id_consulta),
+    mutationFn: (payload) =>
+      id === null
+        ? useServiceConsultas.registrarConsulta(payload, payload.id_paciente)
+        : useServiceConsultas.editarConsultas(payload, id),
     onSuccess: (response) => {
       if (response) {
         successValidation("Consulta feita com sucesso!");
@@ -163,20 +140,7 @@ if (pathParts.length >=3 && pathParts[1] === "editar") {
     },
   });
 
-  const editarConsultas = useMutation({
-    mutationFn: (payload) =>
-      useServiceConsultas.editarConsultas(payload, payload.id_consulta),
-    onError: (err) => {
-      console.log(err);
-    },
-  });
-
- 
-
-  // so vc agora jogar os valores assim
-
   const onSubmit = (data) => {
-    console.log(data);
     const datas = {
       ...data,
       imc: parseInt(data.imc),
@@ -189,27 +153,13 @@ if (pathParts.length >=3 && pathParts[1] === "editar") {
       fc: parseInt(data.FC),
       id_paciente: parseInt(data.id_paciente),
     };
-    mode === "registrar" ?  fazerRegistroConsultas.mutate(datas) : 
-    mode === 'editar' ? editarConsultas.mutate(datas, datas.id_consulta) : ""
-   
-    setFormData(datas);
-    console.log(formData);
-  // reset();
+    fazerRegistroConsultas.mutate(datas);
   };
 
-  useEffect(() => {
-    if (formData && mode === "editar") {
-       reset(dataCon);
-    }
-  }, [formData, mode]);
-console.log(formData);
-//  useEffect(() => {
-  
-//     mode === "editar" ? editarConsultas.mutate(formData, formData.id_consulta) : 
-//     mode === "exibir" ? 
-//     mode === ' editar' ? console.log("AHHHHHHHHHH") : ""
-//   }, [tipoForm, data]);
-
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setValue(name, value);
+  };
 
   return (
     <ContainerMaster>
@@ -230,7 +180,8 @@ console.log(formData);
           <input
             type="text"
             placeholder="Buscar Paciente"
-            onChange={(e) => setResultado(() => e.target.value)}          />
+            onChange={(e) => setResultado(e.target.value)}
+          />
           <p className={styles.icon_pesquisarNome}>
             <Search />
           </p>
@@ -240,16 +191,14 @@ console.log(formData);
             className={styles.formConsultas}
             onSubmit={handleSubmit(onSubmit)}
           >
-            {mudanca === true ? (
+            {mudanca ? (
               <>
                 <div style={{ display: "flex" }}>
                   <div className={styles.namePaciente}>
                     <label htmlFor="id_paciente">Nome do Paciente: </label>
                     <select
-                    
                       defaultValue={dataCon?.id_paciente || ""}
                       {...register("id_paciente")}
-                      
                     >
                       {nomesFiltrados.map((paciente) => (
                         <option
@@ -266,7 +215,6 @@ console.log(formData);
                     <input type="text" />
                   </div>
                 </div>
-
                 <div className={styles.sessao1}>
                   <div className={styles.formGrupoConsulta}>
                     <label htmlFor="diagnostico">Diagnóstico Clínico</label>
@@ -275,7 +223,6 @@ console.log(formData);
                       rows="7"
                       cols="50"
                       {...register("diagnostico")}
-                      defaultValue={dataCon?.diagnostico || ""}
                     />
                   </div>
                   <div className={styles.formGrupoConsulta}>
@@ -284,7 +231,6 @@ console.log(formData);
                       id="queixas"
                       rows="7"
                       cols="50"
-                      defaultValue={dataCon?.queixas || ""}
                       {...register("queixas")}
                     />
                   </div>
@@ -294,7 +240,6 @@ console.log(formData);
                       id="historico"
                       rows="7"
                       cols="50"
-                      defaultValue={dataCon?.historico || ""}
                       {...register("historico")}
                     />
                   </div>
@@ -306,7 +251,6 @@ console.log(formData);
                       id="historicopassado"
                       rows="7"
                       cols="50"
-                      defaultValue={dataCon?.historicopassado || ""}
                       {...register("historicopassado")}
                     />
                   </div>
@@ -316,7 +260,6 @@ console.log(formData);
                       id="quais"
                       rows="7"
                       cols="50"
-                      defaultValue={dataCon?.quais || ""}
                       {...register("quais")}
                     />
                   </div>
@@ -326,7 +269,6 @@ console.log(formData);
                       id="observacoes"
                       rows="7"
                       cols="50"
-                      defaultValue=""
                       {...register("observacoes")}
                     />
                   </div>
@@ -342,15 +284,27 @@ console.log(formData);
                 <div className={styles.sessao2}>
                   <div>
                     <label htmlFor="peso">Peso</label>
-                    <input id="peso" type="number" {...register("peso")} />
+                    <input
+                      id="peso"
+                      type="number"
+                      {...register("peso")}
+                    />
                   </div>
                   <div>
                     <label htmlFor="altura">Altura</label>
-                    <input id="altura" type="number" {...register("altura")} />
+                    <input
+                      id="altura"
+                      type="number"
+                      {...register("altura")}
+                    />
                   </div>
                   <div>
                     <label htmlFor="imc">IMC</label>
-                    <input id="imc" type="number" {...register("imc")} />
+                    <input
+                      id="imc"
+                      type="number"
+                      {...register("imc")}
+                    />
                   </div>
                   <div>
                     <label htmlFor="temperatura">Temperatura</label>
@@ -362,11 +316,19 @@ console.log(formData);
                   </div>
                   <div>
                     <label htmlFor="FR">Frequência Respiratória</label>
-                    <input id="FR" type="number" {...register("FR")} />
+                    <input
+                      id="FR"
+                      type="number"
+                      {...register("FR")}
+                    />
                   </div>
                   <div>
                     <label htmlFor="FC">Frequência Cardíaca</label>
-                    <input id="FC" type="number" {...register("FC")} />
+                    <input
+                      id="FC"
+                      type="number"
+                      {...register("FC")}
+                    />
                   </div>
                   <div>
                     <label htmlFor="pressaoS">Pressão Sistólica</label>

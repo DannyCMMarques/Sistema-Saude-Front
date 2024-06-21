@@ -39,12 +39,31 @@ const successValidation = (data) =>
     progress: undefined,
     theme: "light",
   });
+const ConsultaForm = ({ type }) => {
+  const location = useLocation();
+  const pathParts = location.pathname.split("/").filter((part) => part);
+  const [dataCon, setDataCon] = useState([])
 
+  let mode = "registrar";
+  let id = null;
 
+  if (pathParts.length === 3 && pathParts[1] === "editar") {
+    mode = "editar";
+    id = pathParts[2];
+  }
 
+  const { tipoForm, setTipoForm } = useContext(ConsultaContext);
+  const [formData, setFormData] = useState("");
 
-const ConsultaForm = () => {
- const validationSchemaLogin = z.object({
+  const [mudanca, setMudanca] = useState(true);
+
+  const mudarSessao = () => {
+    setMudanca(!mudanca);
+  };
+
+  const [resultado, setResultado] = useState("");
+
+  const validationSchemaLogin = z.object({
     diagnostico: z.string(),
     queixas: z.string(),
     historico: z.string(),
@@ -63,13 +82,13 @@ const ConsultaForm = () => {
     id_paciente: z.string(),
   });
 
- const {
+  const {
     register,
     handleSubmit,
     formState: { errors },
     reset,
     clearErrors,
-    setValue
+    setValue 
   } = useForm({
     resolver: zodResolver(validationSchemaLogin),
     defaultValues: {
@@ -89,42 +108,8 @@ const ConsultaForm = () => {
       observacoes2: "",
     },
   });
-
-
-
-  const location = useLocation();
-  const pathParts = location.pathname.split("/").filter((part) => part);
-
-//   const [mode,setMode]= useState("")
-//  const [id,setId] =useState("")
-let mode = ""
-let id = ""
-if (pathParts.length >=3 && pathParts[1] === "editar") {
-    mode = "editar"
-    id = pathParts[2]
-    console.log(id)
-  } else if (pathParts.length === 3 && pathParts[1] === "exibir") {
-   mode= "exibir";
-    id=pathParts[2]
-  } else {
-    mode ="registrar";
-    id=""
-  }
-  
-  const [resultado, setResultado] = useState("");
-   const [mudanca, setMudanca] = useState(true);
-
-  const mudarSessao = () => {
-    setMudanca(!mudanca);
-  };
   const useServiceConsultas = serviceConsultas();
   const usePacienteService = servicePacientes();
-
-  //  const [dataCon, setDataCon] = useState([])
-
-  // const { tipoForm, setTipoForm } = useContext(ConsultaContext);
-  const [formData, setFormData] = useState("");
- 
 
   const { isPending, isError, data, error, refetch } = useQuery({
     queryKey: ["getPacientes"],
@@ -134,24 +119,31 @@ if (pathParts.length >=3 && pathParts[1] === "editar") {
     },
     enabled: true,
   });
+  
+
+  const { isPendingConsulta, isErrorConsulta, dataConsulta, errorConsulta, refetchConsulta } = useQuery({
+    queryKey: ["getConsultasId"],
+    queryFn: async () => {
+      if(id !== null) {
+        const dataConsulta = await useServiceConsultas.getConsultasId(id);
+        setDataCon(dataConsulta.data[0])
+        return dataConsulta.data;
+      }
+    },
+    enabled: true,
+  });
+  console.log(dataCon)
+
   const nomesFiltrados =
     data?.data.pacientes.filter((paciente) =>
       paciente.nome.toLowerCase().includes(resultado.toLowerCase())
     ) || [];
 
-    const { isPendingCon, isErrorCon, dataCon, errorCon, refetchCon } = useQuery({
-      queryKey: ["getConsultasId"],
-      queryFn: async () => {
-        const dataCon = await useServiceConsultas.getConsultasId(id);
-        return dataCon;
-      },
-      enabled: true,
-    });
- console.log(dataCon)
   const fazerRegistroConsultas = useMutation({
-    mutationFn: (payload) => useServiceConsultas.registrarConsulta(payload, payload.id_consulta),
-
-    // id ===null    : useServiceConsultas.editarConsultas(payload, payload.id_consulta),
+    mutationFn: (payload) =>
+      id === null
+        ? useServiceConsultas.registrarConsulta(payload, payload.id_paciente)
+        : useServiceConsultas.editarConsultas(payload, payload.id_consulta),
     onSuccess: (response) => {
       if (response) {
         successValidation("Consulta feita com sucesso!");
@@ -171,8 +163,13 @@ if (pathParts.length >=3 && pathParts[1] === "editar") {
     },
   });
 
- 
+  useEffect(() => {
+    if (tipoForm === "editar") {
+      editarConsultas.mutate(formData, formData.id_consulta);
+    }
+  }, [tipoForm, data]);
 
+  console.log(dataCon)
   // so vc agora jogar os valores assim
 
   const onSubmit = (data) => {
@@ -189,26 +186,14 @@ if (pathParts.length >=3 && pathParts[1] === "editar") {
       fc: parseInt(data.FC),
       id_paciente: parseInt(data.id_paciente),
     };
-    mode === "registrar" ?  fazerRegistroConsultas.mutate(datas) : 
-    mode === 'editar' ? editarConsultas.mutate(datas, datas.id_consulta) : ""
-   
+    fazerRegistroConsultas.mutate(datas);
     setFormData(datas);
-    console.log(formData);
-  // reset();
+    // reset();
   };
-
-  useEffect(() => {
-    if (formData && mode === "editar") {
-       reset(dataCon);
-    }
-  }, [formData, mode]);
-console.log(formData);
-//  useEffect(() => {
-  
-//     mode === "editar" ? editarConsultas.mutate(formData, formData.id_consulta) : 
-//     mode === "exibir" ? 
-//     mode === ' editar' ? console.log("AHHHHHHHHHH") : ""
-//   }, [tipoForm, data]);
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setValue(name, value); // Modificação: usar setValue para atualizar o valor do campo no estado do formulário
+  };
 
 
   return (
@@ -230,7 +215,8 @@ console.log(formData);
           <input
             type="text"
             placeholder="Buscar Paciente"
-            onChange={(e) => setResultado(() => e.target.value)}          />
+            onChange={(e) => setResultado(e.target.value)}
+          />
           <p className={styles.icon_pesquisarNome}>
             <Search />
           </p>
@@ -246,10 +232,9 @@ console.log(formData);
                   <div className={styles.namePaciente}>
                     <label htmlFor="id_paciente">Nome do Paciente: </label>
                     <select
-                    
-                      defaultValue={dataCon?.id_paciente || ""}
+                    defaultValue={dataCon?.id_paciente || ""}
                       {...register("id_paciente")}
-                      
+                      onChange={(e) => e.target.value}
                     >
                       {nomesFiltrados.map((paciente) => (
                         <option
@@ -274,8 +259,9 @@ console.log(formData);
                       id="diagnostico"
                       rows="7"
                       cols="50"
-                      {...register("diagnostico")}
-                      defaultValue={dataCon?.diagnostico || ""}
+                      onChange={handleInputChange}
+                value={dataCon?.diagnostico || ""}               
+                             {...register("diagnostico")}
                     />
                   </div>
                   <div className={styles.formGrupoConsulta}>
@@ -284,7 +270,8 @@ console.log(formData);
                       id="queixas"
                       rows="7"
                       cols="50"
-                      defaultValue={dataCon?.queixas || ""}
+                      value={dataCon?.queixas || ""}
+                      onChange={handleInputChange}
                       {...register("queixas")}
                     />
                   </div>
@@ -294,7 +281,7 @@ console.log(formData);
                       id="historico"
                       rows="7"
                       cols="50"
-                      defaultValue={dataCon?.historico || ""}
+                      defaultValue={dataCon?.historico || ""} 
                       {...register("historico")}
                     />
                   </div>
