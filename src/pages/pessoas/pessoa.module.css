@@ -39,9 +39,7 @@
   min-width: 50px;
 }
 
-
 @media (max-width: 450px) {
-
   .containerInfoTitleButton .buttonPaciente {
     background: linear-gradient(to right, #0bace0, #2cd3c7);
     color: white;
@@ -52,6 +50,5 @@
     align-items: center;
     padding: 0px;
     margin: 0px;
-
   }
 }

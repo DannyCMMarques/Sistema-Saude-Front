@@ -40,7 +40,6 @@
   display: flex;
 }
 
-
 .titleBrand p {
   margin: 0;
   font-size: 24px;
@@ -77,9 +76,9 @@
 
 .navCont {
   display: flex;
-  align-Items: center;
+  align-items: center;
   margin: 0;
-  justify-Content: space-between;
+  justify-content: space-between;
   width: 20%;
 }
 

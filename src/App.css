@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:slnt,wght@-10..0,100..900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Inter:slnt,wght@-10..0,100..900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap");
 
 :root {
   --branco-principal: ##fbfcff;
@@ -28,9 +28,7 @@ h6 {
   font-family: "Roboto", sans-serif;
 }
 
-
 html {
-
   background-color: #fbfcff;
 }
 
@@ -41,14 +39,12 @@ html {
   width: 100% important;
 }
 
-
 .rdt_Table {
   background-color: #f0f8ff;
 }
 
 .rdt_TableRow {
   background-color: #faebd7;
-
 }
 
 .rdt_TableCol {
@@ -60,9 +56,8 @@ html {
   font-weight: 600;
   color: #495057;
   font-size: 14px;
-  font-family: 'Roboto', sans-serif;
+  font-family: "Roboto", sans-serif;
   text-align: start;
-
 }
 
 .rdt_TableCell {
@@ -72,8 +67,6 @@ html {
   font-weight: 500;
   line-height: 20px;
 }
-
-
 
 .rdt_TableHead {
   background-color: #ffd700;
@@ -90,7 +83,6 @@ html {
 .rdt_ExpanderRow {
   background-color: #e6e6fa;
 }
-
 
 input,
 select,

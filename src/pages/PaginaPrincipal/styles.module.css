@@ -1,6 +1,7 @@
-.sessao1PagPrin {}
+.sessao1PagPrin {
+}
 
-@media (max-width:450px) {
+@media (max-width: 450px) {
     .sessao1PagPrin {
         padding: 15px;
         margin-top: 30px;

@@ -1,5 +1,4 @@
 .containerDashboard {
-
     transition: box-shadow 0.7s cubic-bezier(0.25, 0.8, 0.25, 1) !important;
     width: 100%;
     min-height: 600px;
@@ -10,8 +9,6 @@
     border-radius: 16px;
     box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
     border: 1px solid rgba(255, 255, 255, 0.3);
-
-
 }
 
 .areaCards {
@@ -29,10 +26,8 @@
 }
 
 @media (max-width: 450px) {
-
     .containerDashboard {
         min-width: 0px;
-
     }
 
     .calendario {
@@ -45,5 +40,4 @@
         align-items: center;
         padding-top: 15px;
     }
-
 }

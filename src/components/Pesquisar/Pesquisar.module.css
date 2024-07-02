@@ -14,7 +14,6 @@
 .pesquisarGrupo input,
 .pesquisarGrupo select,
 .pesquisarGrupo option {
-
   height: 2.4rem;
 
   width: 80%;
@@ -35,13 +34,11 @@
 
 .sessaoBotoesPes {
   margin-right: 75px;
-
 }
 
-@media (max-width:450px) {
+@media (max-width: 450px) {
   .sessaoBotoesPes {
     margin-right: 0px;
-
   }
 
   .pesquisarGrupo input {
@@ -63,5 +60,4 @@
     margin-left: -40px;
     color: gray;
   }
-
 }

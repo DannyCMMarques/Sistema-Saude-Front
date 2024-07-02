@@ -199,8 +199,7 @@ const ConsultaForm = ({ type }) => {
           theme="light"
         />
 
-
-         <div className={styles.pesquisarNome}>
+        <div className={styles.pesquisarNome}>
           {exibirFiltro ? (
             <div className={styles.containerPesquisar}>
               <input

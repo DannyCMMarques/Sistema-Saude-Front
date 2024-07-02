@@ -4,12 +4,11 @@
   width: 100% important;
 }
 
-
 .iconesTabela {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin: 0px
+  margin: 0px;
 }
 
 .buttonIconEdit,

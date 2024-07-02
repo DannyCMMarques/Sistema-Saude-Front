@@ -9,7 +9,9 @@
   top: 0;
   left: 0;
   height: 100%;
-  box-shadow: 0 9px 23px rgba(58, 55, 55, 0.09), 0 5px 5px rgba(0, 0, 0, 0.06) !important;
+  box-shadow:
+    0 9px 23px rgba(58, 55, 55, 0.09),
+    0 5px 5px rgba(0, 0, 0, 0.06) !important;
   border-radius: 0.4167rem;
   transition: box-shadow 0.7s cubic-bezier(0.25, 0.8, 0.25, 1) !important;
   background-color: white;
@@ -44,9 +46,7 @@
 .itemLi:hover {
   transition: all 0.1s;
   color: white;
-  background: linear-gradient(295deg,
-      rgba(47, 203, 200, 1) 0%,
-      rgba(74, 103, 221, 1) 100%);
+  background: linear-gradient(295deg, rgba(47, 203, 200, 1) 0%, rgba(74, 103, 221, 1) 100%);
   box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
 }
 

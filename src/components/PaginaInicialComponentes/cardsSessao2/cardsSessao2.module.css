@@ -1,5 +1,4 @@
 .containerCardsSessao2 {
-
     margin: 3px;
     box-shadow:
         0 9px 23px rgba(58, 55, 55, 0.09),
@@ -37,12 +36,13 @@
 
 .containerCardsSessao2:hover {
     cursor: pointer;
-    box-shadow: 0 15px 30px rgba(58, 55, 55, 0.15), 0 10px 10px rgba(0, 0, 0, 0.10) !important;
+    box-shadow:
+        0 15px 30px rgba(58, 55, 55, 0.15),
+        0 10px 10px rgba(0, 0, 0, 0.1) !important;
     transform: scale(1.05);
-
 }
 
-@media (max-width:450px) {
+@media (max-width: 450px) {
     .containerCardsSessao2 {
         width: 100%;
     }

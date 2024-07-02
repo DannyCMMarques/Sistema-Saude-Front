@@ -39,7 +39,7 @@
     text-decoration: none;
 }
 
-@media (max-width:450px) {
+@media (max-width: 450px) {
     .titleButton .buttonConsulta {
         background: linear-gradient(to right, #0bace0, #2cd3c7);
         padding: 0px;
@@ -51,7 +51,4 @@
         display: flex;
         align-items: center;
     }
-
-
-
 }

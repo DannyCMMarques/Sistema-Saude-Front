@@ -1,7 +1,5 @@
 import MenuProps from "../Interface/MenuProps";
 
-
-
 const MenuContents = ({ home, paciente, consulta, receituarios, sair }) => {
   const menuCardContent = [
     {
