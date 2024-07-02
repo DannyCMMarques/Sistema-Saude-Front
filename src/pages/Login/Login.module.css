@@ -57,11 +57,10 @@
     margin-top: 10px;
     height: 26px;
     font-size: 15px;
-    width: 85%;
+    width: 100%;
 }
 
 .formGrupoLogin_div label {
-    margin-left: 25px;
     font-size: 15px;
     font-weight: 600;
 }

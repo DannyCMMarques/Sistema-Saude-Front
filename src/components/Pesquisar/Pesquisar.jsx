@@ -13,7 +13,6 @@ const Pesquisar = ({ data, onClick }) => {
   const estados = mockEstado;
   const validationSchemaLogin = z.object({
     nome: z.string(),
-   
   });
 
   const {
@@ -27,7 +26,6 @@ const Pesquisar = ({ data, onClick }) => {
     resolver: zodResolver(validationSchemaLogin),
     defaultValues: {
       nome: "",
-    
     },
   });
   const onSubmit = (formData) => {
@@ -49,13 +47,19 @@ const Pesquisar = ({ data, onClick }) => {
             type="text"
             {...register("nome")}
           />
-                <div className={styles.buscarIconPes}>
-                <UserRoundSearch />
-                </div>
+          <div className={styles.buscarIconPes}>
+            <UserRoundSearch />
+          </div>
         </div>
       </div>
-      <div style={{marginRight:75}}>
-        <Botoes background="azul" cor="branca" type="submit" onClick={onClick} style={{marginRight:15}}>
+      <div className={styles.sessaoBotoesPes}>
+        <Botoes
+          background="azul"
+          cor="branca"
+          type="submit"
+          onClick={onClick}
+          style={{ marginRight: 15 }}
+        >
           Buscar
         </Botoes>
         <Botoes

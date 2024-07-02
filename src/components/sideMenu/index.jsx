@@ -1,6 +1,12 @@
 import styles from "./styles.module.css";
 import { useEffect, useState, useContext } from "react";
-import { BriefcaseMedical, Home, UserRoundSearch, FilePen } from "lucide-react";
+import {
+  BriefcaseMedical,
+  Home,
+  UserRoundSearch,
+  FilePen,
+  LogOut,
+} from "lucide-react";
 import MenuContents from "../../contents/menuContents";
 import { ThemeContext } from "../../context/ThemeContext";
 const SideMenu = () => {
@@ -11,6 +17,7 @@ const SideMenu = () => {
     paciente: <UserRoundSearch />,
     consulta: <BriefcaseMedical />,
     receituarios: <FilePen />,
+    sair: <LogOut />,
   });
 
   useEffect(() => {
@@ -33,7 +40,15 @@ const SideMenu = () => {
   const toggleSideMenu = () => {
     if (window.innerWidth > 760) {
       setIsOpen(!isOpen);
-      console.log(isOpen);
+    }
+  };
+
+  const handleNavegar = (href) => {
+    if (href !== "/sair") {
+      window.location.href = href;
+    } else {
+      localStorage.removeItem("access_token");
+      window.location.href = "/";
     }
   };
 
@@ -64,12 +79,13 @@ const SideMenu = () => {
         <ul>
           {menuCardContent.map((item) => (
             <li className={styles.itemLi} key={item.id}>
-              <a href={item.href} className={styles.linkTabela}>
-                <div className={styles.icon}>{item.icones}
-                  </div>
-                     {!isOpen && <h5>{item.titulo}</h5>}
+              <a
+                onClick={() => handleNavegar(item.href)}
+                className={styles.linkTabela}
+              >
+                <div className={styles.icon}>{item.icones}</div>
+                {!isOpen && <h5>{item.titulo}</h5>}
               </a>
-      
             </li>
           ))}
         </ul>

@@ -17,16 +17,16 @@ const ConsultaTable = ({ onClick }) => {
     },
   });
 
+
   useEffect(() => {
     if (data) {
-      setConsultas(data?.data?.consulta || []); // Garanta que os dados existem e estão na estrutura correta
-    }
+      setConsultas(data?.data?.consulta || []);
   }, [data]);
 
   const columns = [
     {
       name: "Diagnostico",
-      selector: (row) => row.consulta.queixas, // Garanta que isso corresponde à estrutura dos dados
+      selector: (row) => row.consulta.queixas,
       sortable: true,
     },
     {
@@ -57,7 +57,7 @@ const ConsultaTable = ({ onClick }) => {
       direction="auto"
       subHeaderAlign="right"
       columns={columns}
-      data={consultas} 
+      data={consultas}
       responsive={true}
       pagination
       theme="solarized"

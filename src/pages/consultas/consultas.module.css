@@ -1,7 +1,7 @@
-.espacoFormulario{
-    margin:auto;
-    width:100%;
-    height:auto;
+.espacoFormulario {
+    margin: auto;
+    width: 100%;
+    height: auto;
     margin-top: 80px;
 }
 
@@ -13,28 +13,45 @@
     margin-bottom: 30px;
 }
 
-.titleButton h5{
+.titleButton h5 {
     font-size: 20px;
     font-weight: 400;
 }
 
-.titleButton a{
+.titleButton a {
     margin: 0;
 }
 
-.titleButton .buttonConsulta{
+.titleButton .buttonConsulta {
     background: linear-gradient(to right, #0bace0, #2cd3c7);
-  padding: 15px 20px;
-  color: white;
-  font-weight: bold;
-  border-radius: 8px;
-  margin-right: 60px;
-  height: 50px;
-  display: flex;
-  align-items: center;
-  margin-bottom:10px;
+    padding: 15px 20px;
+    color: white;
+    font-weight: bold;
+    border-radius: 8px;
+    margin-right: 60px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
 }
 
 .titleButton a {
     text-decoration: none;
+}
+
+@media (max-width:450px) {
+    .titleButton .buttonConsulta {
+        background: linear-gradient(to right, #0bace0, #2cd3c7);
+        padding: 0px;
+        color: white;
+        font-weight: bold;
+        border-radius: 8px;
+        margin: 0px;
+        height: 50px;
+        display: flex;
+        align-items: center;
+    }
+
+
+
 }

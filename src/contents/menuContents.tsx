@@ -1,10 +1,12 @@
 import MenuProps from "../Interface/MenuProps";
 
-const MenuContents = ({ home, paciente, consulta, receituarios }) => {
+
+
+const MenuContents = ({ home, paciente, consulta, receituarios, sair }) => {
   const menuCardContent = [
     {
       id: 1,
-      href: "/",
+      href: "/home",
       titulo: "Home",
       icones: home,
     },
@@ -21,10 +23,16 @@ const MenuContents = ({ home, paciente, consulta, receituarios }) => {
       icones: consulta,
     },
     {
-      id: 4, 
+      id: 4,
       href: "/receituario",
       titulo: "Receituários",
       icones: receituarios,
+    },
+    {
+      id: 5,
+      href: "/sair",
+      titulo: "Sair",
+      icones: sair,
     },
   ];
 

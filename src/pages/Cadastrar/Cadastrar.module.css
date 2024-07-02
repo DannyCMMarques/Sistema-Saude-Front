@@ -18,7 +18,7 @@
 
 .imagemLogin {
     width: 100%;
-    background-size:cover ;
+    background-size: cover;
     background-repeat: no-repeat;
     background-image: url(./../../../public/registrar.jpeg);
     height: 100%;
@@ -48,7 +48,8 @@
     margin-bottom: 7px;
     margin-top: 14px;
 }
-.textoFormulario h1{
+
+.textoFormulario h1 {
     font-weight: 300;
 }
 
@@ -58,11 +59,10 @@
     margin-top: 10px;
     height: 26px;
     font-size: 15px;
-    width: 85%;
+    width: 100%;
 }
 
 .formGrupoLogin_div label {
-    margin-left: 25px;
     font-size: 15px;
     font-weight: 600;
 }
@@ -78,7 +78,7 @@
     border-radius: 8px;
     font-size: 18px;
     font-weight: 500;
-    margin-top: 35px;
+    margin-top: 27px;
     margin-bottom: 10px;
     align-items: center;
     justify-content: center;
@@ -101,13 +101,29 @@
     color: #2d7dd2;
     cursor: pointer;
 }
-.error{
+
+.error {
     color: red;
     text-align: left;
     margin-top: -13px;
     margin-bottom: 4px;
     font-size: 13px;
     margin-left: 24px;
+}
+
+.formGrupoLogin_div :nth-child(1) {
+    margin-top: -20px;
+}
+
+.btnLoginVoltar {
+    background: none;
+    text-align: center;
+    color: #44adb1;
+    cursor: pointer
+}
+
+.btnLoginVoltar:hover {
+    color: #22c7ce
 }
 
 @media (max-width:430px) {

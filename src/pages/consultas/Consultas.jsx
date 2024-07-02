@@ -18,7 +18,6 @@ const Consultas = () => {
           <button className={styles.buttonConsulta}>NOVA CONSULTA</button>
         </a>
       </div>
-      {/* {mostrar && <Pesquisar data={data}  />} */}
 
       <div className={styles.espacoTabela}>
         <TabelaComponent />

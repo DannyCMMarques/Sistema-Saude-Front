@@ -16,12 +16,14 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { FilterProvider } from "./context/useFilterContext";
 import { ConsultaProvider } from "./context/ConsultaContext";
 import { ReceitaProvider } from "./context/ReceituarioContext";
-// import ConsultaForm from "./components/ConsultaForm/ConsultaForm";
 import Login from "./pages/Login/Login";
 import Cadastrar from "./pages/Cadastrar/Cadastrar";
-import ConsultaForm from "./components/ConsultaForm/formConsultaModal";
 import ReceitasImpressões from "./pages/receituarios/receitasImpressões";
+import PaginaPrincipal from "./pages/PaginaPrincipal/index";
+import ConsultaForm from "./components/ConsultaForm/ConsultaForm";
+
 const queryClient = new QueryClient();
+
 function App() {
   return (
     <div className="removepadding">
@@ -29,20 +31,67 @@ function App() {
         <ThemeProvider>
           <FilterProvider>
             <ConsultaProvider>
-                {/* <SideMenu /> */}
-                <BrowserRouter>
-                  <Routes>
-                    <Route path="/" element={<Navigate to="/home" />} />
-                    <Route path="/home" element={<Home />} />
-                    <Route path="/pacientes" element={<Pessoas />} />
-                    <Route path="/consultas" element={<Consultas />} />
-                    <Route path="/receituario" element={<Receituarios />} />
-                    <Route path="/consultas/*" element={<ConsultaForm />} />
-                    <Route path="/login" element={<Login />} />
-                    <Route path="/cadastrar" element={<Cadastrar />} />
-                    {/* <Route path="/imprimir" element={<ReceitasImpressões/>}/> */}
-                  </Routes>
-                </BrowserRouter>
+              <BrowserRouter>
+                <Routes>
+                  <Route path="/" element={<PaginaPrincipal />} />
+                  <Route
+                    path="/home"
+                    element={
+                      isAuthenticated() ? (
+                        <Home />
+                      ) : (
+                        <Navigate to="/login" replace />
+                      )
+                    }
+                  />
+                  <Route
+                    path="/pacientes"
+                    element={
+                      isAuthenticated() ? (
+                        <Pessoas />
+                      ) : (
+                        <Navigate to="/login" replace />
+                      )
+                    }
+                  />
+                  <Route
+                    path="/consultas"
+                    element={
+                      isAuthenticated() ? (
+                        <Consultas />
+                      ) : (
+                        <Navigate to="/login" replace />
+                      )
+                    }
+                  />
+                  <Route
+                    path="/receituario"
+                    element={
+                      isAuthenticated() ? (
+                        <Receituarios />
+                      ) : (
+                        <Navigate to="/login" replace />
+                      )
+                    }
+                  />
+                  <Route
+                    path="/consultas/*"
+                    element={
+                      isAuthenticated() ? (
+                        <ConsultaForm />
+                      ) : (
+                        <Navigate to="/login" replace />
+                      )
+                    }
+                  />
+
+                  <Route
+                    path="/login"
+                    element={isAuthenticated() ? <Home /> : <Login />}
+                  />
+                  <Route path="/cadastrar" element={<Cadastrar />} />
+                </Routes>
+              </BrowserRouter>
             </ConsultaProvider>
           </FilterProvider>
         </ThemeProvider>
@@ -50,5 +99,10 @@ function App() {
     </div>
   );
 }
+
+const isAuthenticated = () => {
+  const accessToken = localStorage.getItem("access_token");
+  return !!accessToken;
+};
 
 export default App;

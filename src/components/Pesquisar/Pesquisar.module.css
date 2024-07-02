@@ -4,6 +4,7 @@
   align-items: center;
   margin-bottom: 30px;
 }
+
 .pesquisarGeral {
   margin-bottom: 30px;
   text-align: end;
@@ -13,22 +14,54 @@
 .pesquisarGrupo input,
 .pesquisarGrupo select,
 .pesquisarGrupo option {
- 
+
   height: 2.4rem;
-  
+
   width: 80%;
 }
 
-
 .divCompletaInput {
-    width: 100%;
-    display: flex;
+  width: 100%;
+  display: flex;
 }
 
-.buscarIconPes{
+.buscarIconPes {
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-left:-145px;
-  color:gray;
+  margin-left: -145px;
+  color: gray;
+}
+
+.sessaoBotoesPes {
+  margin-right: 75px;
+
+}
+
+@media (max-width:450px) {
+  .sessaoBotoesPes {
+    margin-right: 0px;
+
+  }
+
+  .pesquisarGrupo input {
+    height: 2.4rem;
+    margin: 0;
+    width: 100%;
+  }
+
+  .pesquisarGeral {
+    margin-bottom: 30px;
+    text-align: start;
+    align-self: start;
+  }
+
+  .buscarIconPes {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-left: -40px;
+    color: gray;
+  }
+
 }

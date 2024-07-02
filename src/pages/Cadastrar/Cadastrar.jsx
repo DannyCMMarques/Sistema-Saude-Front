@@ -32,6 +32,10 @@ const successValidation = (data) =>
     progress: undefined,
     theme: "light",
   });
+
+const handleVoltar = () => {
+  window.location.href = "/login";
+};
 const Cadastrar = () => {
   const validationSchemaLogin = z.object({
     username: z.string().email({ message: "E-mail obrigatório" }),
@@ -66,10 +70,9 @@ const Cadastrar = () => {
       if (response) {
         successValidation("Usuário cadastrado com sucesso!");
       }
-setTimeout(() => {
+      setTimeout(() => {
         window.location.href = "/login";
-
-}, 3000);
+      }, 3000);
     },
     onError: (err) => {
       errorValidator("Ocorreu um erro interno");
@@ -79,7 +82,6 @@ setTimeout(() => {
 
   const onSubmit = (data) => {
     fazerRegistro.mutate(data);
-    console.log(data);
   };
 
   return (
@@ -170,6 +172,11 @@ setTimeout(() => {
               </button>
             </div>
           </form>
+          <div>
+            <p onClick={() => handleVoltar()} className={styles.btnLoginVoltar}>
+              Voltar
+            </p>
+          </div>
         </div>
         <div className={styles.imagemLogin}>
           <h1></h1>

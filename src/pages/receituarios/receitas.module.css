@@ -1,5 +1,7 @@
 .containerReceita {
-    box-shadow: 0 9px 23px rgba(58, 55, 55, 0.09), 0 5px 5px rgba(0, 0, 0, 0.06) !important;
+    box-shadow:
+        0 9px 23px rgba(58, 55, 55, 0.09),
+        0 5px 5px rgba(0, 0, 0, 0.06) !important;
     border-radius: 0.4167rem;
     transition: box-shadow 0.7s cubic-bezier(0.25, 0.8, 0.25, 1) !important;
     background-color: white;
@@ -8,14 +10,13 @@
     min-height: 560px;
     height: 100%;
     margin-top: 50px;
-
 }
-
 
 .pesquisarNome {
     display: flex;
     align-items: center;
     margin-bottom: 5px;
+    width: 60%;
 }
 
 .receitaForm {
@@ -23,37 +24,34 @@
 }
 
 .icon_pesquisarNome {
-
     position: absolute;
     top: 10px;
     right: 360px;
 }
 
 .pesquisarNome input {
-    width: 50%;
+    width: 100%;
     height: 35px;
     margin-bottom: -35px;
     font-size: 17px;
-
 }
 
 .formReceita {
     width: 100%;
     height: 100%;
     min-height: 500px;
-
 }
 
-
 .namePaciente {
-    display: inline-block;
-    margin-bottom: 10px;
+    width: 100%;
+}
 
+.nameMedico {
+    width: 100%;
 }
 
 .namePaciente select {
-
-    width: 95%;
+    width: 100%;
     height: 25px;
 }
 
@@ -63,22 +61,32 @@
     text-align: center;
     padding-left: 7px;
     background: transparent;
-    color: #72848c
+    color: #72848c;
 }
 
 .namePaciente button:hover {
     color: red;
 }
 
+.topoFormulario,
+.sessao2 {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
 
+.sessao2 {
+    width: 100%;
+    display: flex;
+    gap: 5%;
+    padding: 20px;
+}
 
-.topoFormulario,.sessao2 {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    grid-gap: 25px;
-    grid-auto-rows: 60px;
-    padding-top: 30px;
-    width: 80%;
+.topoFormulario {
+    width: 100%;
+    display: flex;
+    gap: 5%;
+    padding: 20px;
 }
 
 .topoFormulario input {
@@ -88,25 +96,26 @@
 
 .topoFormulario label {
     font-size: 15px;
-    margin-bottom: 0.75rem;
-    padding-left: 10px;
-
 }
 
 .dataReceita input {
-    width: 120%;
-    margin-left: -25px;
+    width: 100%;
+}
+
+.dataReceita {
+    width: 100%;
 }
 
 .textareaReceita {
     width: 100%;
     height: 100%;
-    margin-top: 40px;
+    margin-top: 10px;
     display: flex;
+    padding: 20px;
 }
 
 .textareaReceita textarea {
-    width: 90%;
+    width: 100%;
     min-height: 195px;
     height: 100px;
 }
@@ -127,22 +136,57 @@
 }
 
 .errors {
-
     color: red;
     text-align: left;
-    margin-top: 1px;
-    margin-bottom: 4px;
     font-size: 13px;
-
 }
 
-@media (max-width:415px){
+.crm {
+    width: 100% !important;
+}
 
-    .containerReceita{
+.crm input {
+    width: 100%;
+}
+
+.containerButton {
+    display: flex;
+    margin-top: 20px;
+}
+
+.container {
+    width: 100%;
+    position: relative;
+}
+
+.input {
+    width: 100%;
+    height: 40px !important;
+    padding: 10px 40px 10px 10px;
+    box-sizing: border-box;
+}
+
+.icon {
+    position: absolute;
+    top: 70%;
+    right: 20px;
+    transform: translateY(-50%);
+    pointer-events: none;
+    width: 10px;
+}
+
+@media (max-width: 415px) {
+    .containerButton {
+        display: flex;
+        margin-top: 0;
+        padding: 20px;
+    }
+
+    .containerReceita {
         height: 100%;
         margin: 0px;
         border: 1px solid #d2d2d2;
-         box-shadow: 0 1px 0 0 #d2d2d2; 
+        box-shadow: 0 1px 0 0 #d2d2d2;
         padding: 0px;
         box-sizing: content-box;
         border-radius: 5px;
@@ -151,28 +195,42 @@
         transition: all 0.2s;
         width: 106%;
     }
-    .dataReceita input{
-        width: 86%;
-        margin-left:0px;
+
+    .dataReceita input {
+        width: 100% !important;
     }
-    .topoFormulario{
-        grid-template-columns: repeat(1, 1fr);
-      
+
+    .dataReceita {
+        width: 100% !important;
     }
-    .sessao2{
-        display: grid;
-        grid-template-columns: repeat(2, 1fr);
-        grid-gap: 13px;
-        grid-auto-rows: 58px;
-        /* padding-top: 30px; */
-        width: 81%;
+
+    .topoFormulario {
+        display: block;
     }
-    .sessao2 input{
-        width:90%;
-        height: 25px;
+
+    .namePaciente {
+        margin-bottom: 20px;
     }
+
+    .sessao2 {
+        display: block;
+    }
+
+    .crm {
+        margin-bottom: 20px;
+    }
+
     .receitaForm {
         margin-top: 30px;
     }
-    
+
+    .pesquisarNome {
+        width: 100%;
+        margin-bottom: 20px;
+    }
+
+    .topoFormulario,
+    .sessao2 {
+        padding-top: 15px;
+    }
 }

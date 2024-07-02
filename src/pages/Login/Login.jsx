@@ -47,7 +47,6 @@ const Login = () => {
 
     onSuccess: (response) => {
       if (response) {
-        console.log(response.data.token);
         localStorage.setItem("access_token", response.data.token);
       }
       window.location.href = "/home";
@@ -64,7 +63,6 @@ const Login = () => {
 
   const onSubmit = (data) => {
     fazerLogin.mutate(data);
-    console.log(data);
   };
 
   return (

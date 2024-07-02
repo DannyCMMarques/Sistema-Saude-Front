@@ -8,15 +8,13 @@ import Modal from "../Modal/Modal";
 import ContainerForm from "../ContainerForm/ContainerForm";
 import Pesquisar from "../Pesquisar/Pesquisar";
 import { FilterContext } from "../../context/useFilterContext";
-import { Navigate, useLocation, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import serviceConsultas from "../../service/serviceConsultas";
 import ConsultaForm from "../ConsultaForm/ConsultaForm";
 import { ConsultaContext } from "../../context/ConsultaContext";
 
 const TabelaComponent = ({ onClick }) => {
-
-
-  const navegar = useNavigate();
+  let navigate = useNavigate();
   const { filter, setCancelar, cancelar } = useContext(FilterContext);
 
   const [pacientes, setPacientes] = useState([]);
@@ -28,11 +26,10 @@ const TabelaComponent = ({ onClick }) => {
   const [buscar, setBuscar] = useState(false);
 
   const location = useLocation();
-  console.log(location.pathname);
   const handleMostrar = () => {
     setMostrar(!mostrar);
     setCancelar(false);
-    setBuscar(false); // Resetar o estado buscar
+    setBuscar(false);
   };
 
   const [dataTable, setDataTable] = useState([]);
@@ -57,8 +54,6 @@ const TabelaComponent = ({ onClick }) => {
   const handleBuscar = () => {
     setBuscar(true);
   };
-  
- 
 
   useEffect(() => {
     if (data) {
@@ -74,7 +69,6 @@ const TabelaComponent = ({ onClick }) => {
       }
       setDataTable(filteredData);
       setPacientes(filteredData);
-      console.log(filteredData);
     }
   }, [data, filter, mostrar, buscar]);
 
@@ -84,10 +78,9 @@ const TabelaComponent = ({ onClick }) => {
         ? setDataTable(data.data.consulta)
         : setDataTable(data.data.pacientes);
 
-      setBuscar(false); // Resetar o estado buscar
+      setBuscar(false);
     }
   }, [cancelar, data]);
-console.log(dataTable);
   const deletarPaciente = useMutation({
     mutationFn: async (payload) => {
       await usePacienteService.deletarPacientes(payload);
@@ -112,12 +105,16 @@ console.log(dataTable);
   });
   const handleCloseSeach = () => {
     setCancelar(true);
-    setBuscar(false); // Resetar o estado buscar
+    setBuscar(false);
   };
 
-   const handleEditar = (id) =>{
-  navegar(`/consultas/editar/${id}`)
- }
+  const handleExibirConsultas = (id) => {
+    navigate(`/consultas/exibir/${id}`);
+  };
+
+  const handleEditar = (id) => {
+    navigate(`/consultas/editar/${id}`);
+  };
   const columnsPaciente = [
     {
       name: "Pacientes",
@@ -181,28 +178,23 @@ console.log(dataTable);
   ];
   const columnsConsulta = [
     {
-      name: "Pacientes",
-      selector: (row) => row.paciente.nome,
+      name: "Diagnósticos",
+      selector: (row) => row.consulta.diagnostico,
       sortable: true,
     },
     {
-      name: "Telefone",
-      selector: (row) => row.paciente.telefone,
+      name: "Observações",
+      selector: (row) => row.consulta?.observacoes,
       sortable: true,
     },
     {
       name: "Queixas",
-      selector: (row) => row.consulta.queixas,
-      sortable: true,
-    },
-    {
-      name: "Data",
-      selector: "",
+      selector: (row) => row.consulta?.queixas,
       sortable: true,
     },
     {
       name: "Médicos",
-      selector: "",
+      selector: (row) => row.consulta?.nome_medico,
       sortable: true,
     },
 
@@ -218,12 +210,13 @@ console.log(dataTable);
       ),
       cell: (row) => (
         <div className={styles.iconesTabela}>
-         
+          <button
+            className={styles.buttonIconEdit}
+            onClick={() => handleEditar(row.consulta.id_consulta)}
+          >
+            <FilePenLine size={20} color="white" />
+          </button>
 
-            <button className={styles.buttonIconEdit} onClick={()=>handleEditar(row.consulta.id_consulta)} >
-              <FilePenLine size={20} color="white" />
-            </button>
-          
           <button
             className={styles.buttonIconDelete}
             onClick={() => deletarConsulta.mutate(row.consulta.id_consulta)}
@@ -232,7 +225,7 @@ console.log(dataTable);
           </button>
           <button
             className={styles.buttonIconExibir}
-            onClick={() => handleOpenModal(row, "Exibir")}
+            onClick={() => handleExibirConsultas(row.consulta.id_consulta)}
           >
             <NotepadText size={20} color="white" />
           </button>

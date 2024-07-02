@@ -1,7 +1,7 @@
-import React from 'react';
-import styles from './Botoes.module.css';
+import React from "react";
+import styles from "./Botoes.module.css";
 
-const Botoes = ({ children, background, cor, type, onClick,style }) => {
+const Botoes = ({ children, background, cor, type, onClick, style, size }) => {
   let fundo = "";
   let corTexto = "";
   switch (background) {
@@ -37,9 +37,13 @@ const Botoes = ({ children, background, cor, type, onClick,style }) => {
       corTexto = "";
   }
 
+  let tamanho = "";
+  if (size == "100") {
+    tamanho = styles.tamanho100;
+  }
   return (
     <button
-      className={`${styles.btn} ${fundo} ${corTexto}`}
+      className={`${styles.btn} ${fundo} ${corTexto} ${tamanho}`}
       type={type}
       onClick={onClick}
       style={style}

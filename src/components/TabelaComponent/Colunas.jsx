@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 
 const columnsPacientes = (emojisPac) => [
   {
@@ -32,7 +32,6 @@ const columnsPacientes = (emojisPac) => [
 ];
 
 const columnsConsultas = [
-  // Defina aqui as colunas específicas para consultas
   {
     name: "Consulta",
     selector: (row) => row.consulta,
@@ -55,5 +54,4 @@ const columnsConsultas = [
   },
 ];
 
-// Exportação das colunas
-export  default { columnsPacientes, columnsConsultas };
+export default { columnsPacientes, columnsConsultas };

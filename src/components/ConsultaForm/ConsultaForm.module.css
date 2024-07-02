@@ -8,10 +8,35 @@
   padding: 20px;
   height: 100%;
 }
-
+.containerPesquisar{
+  width: 100%;
+  position: relative;
+}
+.icon {
+  position: absolute;
+  top: 70%;
+  right: 10px;
+  transform: translateY(-50%);
+  pointer-events: none;
+  width: 20px;
+}
+.input {
+  width: 100%;
+  height: 40px !important;
+  padding: 10px 40px 10px 10px;
+  box-sizing: border-box;
+}
 .pesquisarNome {
   display: flex;
   align-items: center;
+  margin-bottom: 5px;
+  width: 60%;
+}
+.pesquisarNome input {
+  width: 100%;
+  height: 35px;
+  margin-bottom: -35px;
+  font-size: 17px;
 }
 
 .consultaForm {
@@ -19,19 +44,8 @@
   ;
 }
 
-.icon_pesquisarNome {
 
-  margin-top: -15px;
-  margin-left: -380px;
-}
 
-.pesquisarNome input {
-  width: 50%;
-  height: 35px;
-  margin-bottom: 20px;
-  font-size: 17px;
-
-}
 
 .sessao1 {
   display: flex;
@@ -45,9 +59,8 @@
 .sessao1>*,
 .sessao2>* {
   flex: 1 1 calc(33.3333% - 50px);
-  /* garante que cada item ocupe 1/3 do espaço menos o gap */
+
   box-sizing: border-box;
-  /* para incluir padding e border no tamanho total */
 }
 
 .sessao2 {
@@ -61,7 +74,7 @@
 
 
 form {
-  width: 90%;
+  width: 100%;
   height: 100%;
 }
 
@@ -79,21 +92,44 @@ form {
 }
 
 .namePaciente {
-  display: inline-block;
   margin-bottom: 10px;
 
 }
 
+.namePaciente button {
+  cursor: pointer;
+  font-size: 10px;
+  text-align: center;
+  padding-left: 7px;
+  background: transparent;
+  color: #72848c
+}
+
+.namePaciente button:hover {
+  color: red;
+}
+
+
 .namePaciente select {
 
-  width: 70%;
+  width: 100%;
   height: 25px;
   margin-top: -10px;
 }
 
+.nameMedico {
+  width: 100%;
+}
+
 .nameMedico input {
-  width: 70%;
+  width: 100%;
   height: 25px;
+}
+
+.containerSessao1 {
+  display: flex;
+  gap: 5%;
+  margin-bottom: 3.5%
 }
 
 .namePaciente label,
@@ -115,6 +151,7 @@ form {
   justify-content: center;
   align-items: center;
   padding: 10px;
+  margin-top: 15px;
 }
 
 .sessao2 input {
@@ -129,4 +166,81 @@ form {
   justify-content: center;
   align-items: center;
   padding: 10px;
+}
+
+.nomePacMedico {
+  width: 100%;
+}
+
+.buttonSearch {
+  background: none;
+  align-items: baseline;
+  margin-left: 5px;
+}
+
+@media (max-width:450px) {
+  .sessao1 {
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+
+
+  .sessao2 {
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+
+  .formGrupoConsulta {
+    margin-bottom: 15px;
+  }
+
+  .containerSessao1 {
+    display: block
+  }
+
+  .nomePacMedico {
+    width: 100%;
+    margin-bottom: 10px;
+  }
+
+  .nameMedico {
+    margin-top: 20px;
+    margin-bottom: 10px;
+  }
+
+  .sessao1 label,
+  .sessao2 label {
+    font-size: 14px;
+    display: inline-block;
+    margin-bottom: -0.25rem;
+    font-weight: 500;
+    color: #72848c;
+  }
+
+  .botoesSessao2 {
+    width: 100%;
+    margin-top: 40px;
+    display: block;
+    padding: 10px;
+  }
+
+  .botoesSessao2 div {
+    margin-bottom: 6px;
+  }
+
+  .pesquisarNome {
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+  .pesquisarNome input {
+    width: 100%;
+  }
+
+  option {
+    font-size: 10px;
+  }
+
 }

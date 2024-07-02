@@ -3,13 +3,8 @@ import ContainerMaster from "../../components/container";
 import styles from "./receitasImpressoes.module.css";
 
 const ReceitasImpressoes = forwardRef((data, ref) => {
-
-
-  console.log(data.data);
   return (
     <div ref={ref}>
-      {" "}
-      {/* Utilize a ref aqui */}
       <div className={styles.containerReceitas}>
         <div>
           <h1 style={{ textAlign: "center" }}>RECEITUÁRIO SIMPLES </h1>

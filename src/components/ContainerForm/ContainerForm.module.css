@@ -56,12 +56,14 @@
   .formGroup option:focus {
     padding-left: 0px;
   }
+
   .formGroup input,
   .formGroup select,
   .formGroup option {
     width: 90%;
     padding-left: 0px;
   }
+
   .botao {
     display: flex;
     justify-content: center;

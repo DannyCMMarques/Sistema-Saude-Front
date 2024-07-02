@@ -1,4 +1,10 @@
-import React, { useContext, createContext, useState, useRef } from "react";
+import React, {
+  useContext,
+  createContext,
+  useState,
+  useRef,
+  useEffect,
+} from "react";
 import styles from "./receitas.module.css";
 import ContainerMaster from "../../components/container/index.jsx";
 import { Search } from "lucide-react";
@@ -41,7 +47,7 @@ const Receituarios = () => {
 
   const [exibirFiltro, setExibirFiltro] = useState(false);
 
-  const componentRef = useRef(); // Adicione esta linha
+  const componentRef = useRef();
   const usePacienteService = servicePacientes();
 
   const validationSchemaLogin = z.object({
@@ -51,7 +57,16 @@ const Receituarios = () => {
     dataReceita: z.string().min(2, { message: "insira a data da receita" }),
     receita: z.string(),
   });
-
+  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+  useEffect(() => {
+    const handleResize = () => {
+      setWindowWidth(window.innerWidth);
+    };
+    window.addEventListener("resize", handleResize);
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
   const {
     register,
     handleSubmit,
@@ -83,8 +98,7 @@ const Receituarios = () => {
     data?.data.pacientes.filter((paciente) =>
       paciente.nome.toLowerCase().includes(resultadoNome.toLowerCase())
     ) || [];
-  console.log(nomesFiltrados);
-  console.log(nomesFiltrados.length);
+
   const onSubmit = (data) => {
     setFormData(data);
     setNomePacientes(data.nomePaciente);
@@ -92,32 +106,29 @@ const Receituarios = () => {
     setCrm(data.crm);
     setDataReceita(data.dataReceita);
     setReceita(data.receita);
-    console.log(data);
-    console.log(data);
   };
 
   const handleExibirFiltro = () => {
     setExibirFiltro(!exibirFiltro);
-    console.log(exibirFiltro);
   };
   return (
     <ContainerMaster>
-
       <ToastContainer />
-          <SideMenu />
+      <SideMenu />
 
       <div className={styles.receitaForm}>
         <div className={styles.pesquisarNome}>
           {exibirFiltro ? (
-            <div>
+            <div className={styles.container}>
               <input
                 type="text"
                 placeholder="Buscar Paciente"
                 onChange={(e) => setResultadoNome(e.target.value)}
+                className={styles.input}
               />
-              <p className={styles.icon_pesquisarNome}>
-                <Search />
-              </p>
+              <span className={styles.icon}>
+                <Search size={20} />
+              </span>
             </div>
           ) : (
             ""
@@ -134,23 +145,28 @@ const Receituarios = () => {
                   Nome do Paciente:
                   <button onClick={handleExibirFiltro}>
                     {" "}
-                    <Search size={20} />{" "}
+                    <Search size={14} />{" "}
                   </button>{" "}
                 </label>
-                <select
-                  {...register("nomePaciente")}
-                  onChange={(e) => setNomePacientes(e.target.value)}
-                >
-                  {nomesFiltrados.length === 0 ? (
-                    <option value="null"> Nome não Encontrado</option>
-                  ) : (
-                    nomesFiltrados.map((paciente) => (
-                      <option value={paciente.nome} key={paciente.id_paciente}>
-                        {paciente.nome}
-                      </option>
-                    ))
-                  )}
-                </select>
+                <div style={{ width: "100%" }}>
+                  <select
+                    {...register("nomePaciente")}
+                    onChange={(e) => setNomePacientes(e.target.value)}
+                  >
+                    {nomesFiltrados.length === 0 ? (
+                      <option value="null"> Nome não Encontrado</option>
+                    ) : (
+                      nomesFiltrados.map((paciente) => (
+                        <option
+                          value={paciente.nome}
+                          key={paciente.id_paciente}
+                        >
+                          {paciente.nome}
+                        </option>
+                      ))
+                    )}
+                  </select>
+                </div>
                 {errors.nomePaciente && (
                   <p className={styles.errors}>{errors.nomePaciente.message}</p>
                 )}
@@ -165,7 +181,12 @@ const Receituarios = () => {
             </div>
             <div className={styles.sessao2}>
               <div className={styles.crm}>
-                <label htmlFor="numero do CRM">N° do CRM: </label>
+                {windowWidth > 450 ? (
+                  <label htmlFor="numero do CRM">Número do CRM: </label>
+                ) : (
+                  <label htmlFor="numero do CRM">N° do CRM: </label>
+                )}
+
                 <input type="text" {...register("crm")} />
                 {errors.crm && (
                   <p className={styles.errors}>{errors.crm.message}</p>
@@ -190,7 +211,10 @@ const Receituarios = () => {
                 placeholder="Faça aqui sua receita"
               />
             </div>
-            <div style={{ display: "flex", marginTop: 20 }}>
+            <div
+              className={styles.containerButton}
+              style={{ display: "flex", marginTop: 20 }}
+            >
               <ReactToPrint content={() => componentRef.current}>
                 <PrintContextConsumer>
                   {({ handlePrint }) => (
@@ -208,9 +232,6 @@ const Receituarios = () => {
             </div>
             <div style={{ display: "none" }}>
               <ReceitasImpressoes ref={componentRef} data={formData} />
-            </div>
-            <div className={styles.baixarArq}>
-              <small> Baixar Arquivos </small>
             </div>
           </form>
         </div>

@@ -1,6 +1,15 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:slnt,wght@-10..0,100..900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
 
-
+:root {
+  --branco-principal: ##fbfcff;
+  --cinza-shadow: #d2d2d2;
+  --cinza: #495057;
+  --cinza-label: #72848c;
+  --azul-500: #4285f4;
+  --branco-100: #f6f9fe;
+  --azul-botao: #1c8098;
+  --azul-botao-hover: #0eacbf;
+}
 
 .removepadding {
   padding: 0;
@@ -21,7 +30,8 @@ h6 {
 
 
 html {
-  background-color: #f4f4f4;
+
+  background-color: #fbfcff;
 }
 
 .rdt_TableBody {
@@ -31,16 +41,13 @@ html {
   width: 100% important;
 }
 
-/* Estilos personalizados para cada classe da tabela */
 
 .rdt_Table {
   background-color: #f0f8ff;
-  /* AliceBlue */
 }
 
 .rdt_TableRow {
   background-color: #faebd7;
-  /* AntiqueWhite */
 
 }
 
@@ -66,34 +73,22 @@ html {
   line-height: 20px;
 }
 
-.rdt_TableHeader {
-  background-color: #8b0000;
-  /* DarkRed */
-}
 
-.rdt_TableFooter {
-  background-color: #ff8c00;
-  /* DarkOrange */
-}
 
 .rdt_TableHead {
   background-color: #ffd700;
-  /* Gold */
 }
 
 .rdt_TableHeadRow {
   background-color: #adff2f;
-  /* GreenYellow */
 }
 
 .rdt_TableBody {
   background-color: #f0e68c;
-  /* Khaki */
 }
 
 .rdt_ExpanderRow {
   background-color: #e6e6fa;
-  /* Lavender */
 }
 
 
@@ -104,13 +99,13 @@ textarea {
   border: 1px solid #d2d2d2;
   box-shadow: 0 1px 0 0 #d2d2d2;
   padding: 3px;
-  padding-left: 15px;
   box-sizing: content-box;
   border-radius: 5px;
   color: #495057;
   font-size: 14px;
   transition: all 0.2s;
-
+  height: 25px !important;
+  width: 100%;
 }
 
 input:focus,
@@ -119,8 +114,7 @@ option:focus,
 textarea:focus {
   border: 1px solid #4285f4;
   box-shadow: 0 1px 0 0 #4285f4;
-  background-color: #e8f0fe;
-  padding-left: 15px;
+  background-color: #f6f9fe;
 }
 
 label {
@@ -128,4 +122,10 @@ label {
   display: inline-block;
   font-weight: 500;
   color: #72848c;
+}
+
+@media (max-width: 768px) {
+  .recharts-wrapper {
+    width: 250px !important;
+  }
 }

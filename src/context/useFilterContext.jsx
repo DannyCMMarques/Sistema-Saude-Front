@@ -7,7 +7,9 @@ export const FilterProvider = ({ children }) => {
   const [cancelar, setCancelar] = useState(true);
 
   return (
-    <FilterContext.Provider value={{ filter, setFilter, setCancelar, cancelar }}>
+    <FilterContext.Provider
+      value={{ filter, setFilter, setCancelar, cancelar }}
+    >
       {children}
     </FilterContext.Provider>
   );

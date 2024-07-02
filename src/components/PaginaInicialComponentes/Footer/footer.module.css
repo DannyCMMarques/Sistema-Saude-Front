@@ -1,0 +1,20 @@
+.containerFooter {
+    box-shadow: 0 9px 23px rgba(58, 55, 55, 0.09), 0 5px 5px rgba(0, 0, 0, 0.06) !important;
+    border-radius: 0.4167rem;
+    background: linear-gradient(135deg, #1c8098 0%, #5ca3b1 100%);
+    width: 100%;
+    padding: 20px;
+
+}
+
+.containerFooter h1 {
+    color: white;
+    font-size: 25px;
+    font-weight: 600;
+}
+
+@media (max-width: 450px) {
+    .logos {
+        font-size: 13px;
+    }
+}

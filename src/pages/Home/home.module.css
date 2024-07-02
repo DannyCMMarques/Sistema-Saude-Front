@@ -1,0 +1,49 @@
+.containerDashboard {
+
+    transition: box-shadow 0.7s cubic-bezier(0.25, 0.8, 0.25, 1) !important;
+    width: 100%;
+    min-height: 600px;
+    height: 100%;
+    margin-top: 50px;
+    min-width: 1125px;
+    background: white;
+    border-radius: 16px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+
+
+}
+
+.areaCards {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding-top: 65px;
+}
+
+.sessao2 {
+    margin-top: 70px;
+    align-items: center;
+    display: flex;
+    justify-content: space-around;
+}
+
+@media (max-width: 450px) {
+
+    .containerDashboard {
+        min-width: 0px;
+
+    }
+
+    .calendario {
+        display: none;
+    }
+
+    .areaCards {
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        padding-top: 15px;
+    }
+
+}

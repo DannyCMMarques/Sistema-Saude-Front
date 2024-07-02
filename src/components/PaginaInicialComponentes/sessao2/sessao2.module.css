@@ -1,0 +1,64 @@
+.containerSessao2 {
+    padding: 80px;
+    margin-top: -30px;
+}
+
+
+.subtitulo2Sessao2 {
+    display: flex;
+    justify-content: center;
+    align-content: center;
+}
+
+.subtitulo2Sessao2 p {
+    color: #808080;
+    font-size: 20px;
+    font-weight: 300;
+
+}
+
+.tituloSessao2 {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+    border-bottom: 1px solid black;
+    width: 18%;
+    padding: 12px;
+    margin-bottom: 25px;
+}
+
+.tituloSessao2 h1 {
+    font-size: 25px;
+    font-weight: 500;
+}
+
+.espacoCardsSessao2 {
+    display: grid;
+    justify-items: center;
+    margin-top: 40px;
+    grid-template-columns: repeat(3, 1fr);
+    background-image: url(./../../../../bgElemento.png);
+    background-size: cover;
+    width: 100%;
+}
+
+@media(max-width:450px) {
+    .espacoCardsSessao2 {
+        grid-template-columns: repeat(1, 1fr);
+
+    }
+
+    .containerSessao2 {
+        padding: 15px;
+    }
+
+    .tituloSessao2 {
+        width: 100%;
+    }
+
+    .subtitulo2Sessao2 p {
+        text-align: center;
+    }
+
+}

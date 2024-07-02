@@ -1,31 +1,3 @@
-// import { X } from 'lucide-react';
-// import styles from './Modal.module.css'
-// const Modal2 = ({ isOpen, children,onClose }) => {
-//   const handleCloseModal = () => {
-//     if (onClose) {
-//       onClose();
-//     }
-//   };
-
-
-//   return (
-//     <div
-//       className={styles.modalContainer}
-//       style={{ display: isOpen ? "block" : "none" }}
-//     >
-//       <div
-//         className={styles.modalContent}
-//       >
-//      {children}
-//       </div>
-//     </div>
-//   );
-// };
-
-// export default Modal2;
-
-
-// Modal.js
 import { useState, useEffect } from "react";
 import styles from "./Modal.module.css";
 
@@ -66,7 +38,6 @@ const Modal = ({ isOpen, children, size, titulo, onClose }) => {
       <div className={contentClass}>
         <div className="mb-3 d-flex justify-content-between">
           <p className={styles.tituloModal}>{titulo}</p>
-          {/* <X className={styles.closeModal} onClick={handleCloseModal} /> */}
         </div>
         {children}
       </div>

@@ -56,19 +56,23 @@ const ContainerForm = ({ onClick, data, type }) => {
   });
 
   useEffect(() => {
-    if (data && type === "Editar") {
+    if ((data && type === "Editar") || type === "Exibir") {
       reset(data);
     }
   }, [data, type, reset]);
 
   const useServicePaciente = servicePacientes();
-  // const { isPending, isError, data, error, refetch } = useQuery({
-  //   queryKey: ['getPacientes'],
-  //   queryFn: async () => {
-  //     const data = await useServicePaciente.getPacientes();
-  //     return data
-  //   },
-  // });
+
+  const { data: PacData, refetch: refetchPaciente } = useQuery({
+    queryKey: ["getPacientesId"],
+    queryFn: async () => {
+      const dataPaciente = await useServicePaciente.getPacientesID(
+        data.id_paciente
+      );
+      return dataPaciente.data;
+    },
+    enabled: true,
+  });
 
   const fazerRegistro = useMutation({
     mutationFn: (payload) => useServicePaciente.registrar(payload),

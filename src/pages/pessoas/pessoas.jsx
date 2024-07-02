@@ -18,7 +18,6 @@ import { useQuery } from "@tanstack/react-query";
 import SideMenu from "../../components/sideMenu/index.jsx";
 const Pessoas = () => {
   const [modalOpen, setModalOpen] = useState(false);
-  // const [mostrar, setMostrar] = useState(false);
   const usePacienteService = servicePacientes();
 
   const { isPending, isError, data, error, refetch } = useQuery({
@@ -32,25 +31,20 @@ const Pessoas = () => {
   const handleOpenModal = () => {
     setModalOpen(true);
   };
-  // const handleMostrar = () => {
-  //   setMostrar(!mostrar);
-  // };
 
   function handleCloseModal() {
     refetch();
     setModalOpen(false);
   }
 
-  useEffect(() => {
-    // refetch();
-  }, [data]);
+  useEffect(() => {}, [data]);
 
   return (
     <ContainerMaster>
-                      <SideMenu />
+      <SideMenu />
 
       <Modal size="small" isOpen={modalOpen} onClose={handleCloseModal}>
-        <ContainerForm onClick={handleCloseModal}  type="Registrar"/>
+        <ContainerForm onClick={handleCloseModal} type="Registrar" />
       </Modal>
       <div className={styles.pacientes}>
         <div className={styles.containerInfoTitleButton}>
@@ -61,10 +55,9 @@ const Pessoas = () => {
             NOVO PACIENTE
           </button>
         </div>
-        {/* {mostrar && <Pesquisar data={data}  />} */}
 
         <div className={styles.espacoTabela}>
-          <TabelaComponent  />
+          <TabelaComponent />
         </div>
       </div>
     </ContainerMaster>

@@ -1,0 +1,32 @@
+.tituloForm {
+    color: #7f8f96;
+    font-weight: 600;
+    padding-bottom: 6px;
+    text-align: center;
+    border-bottom: 1px solid #7f8f96;
+}
+
+.corpoForm {
+    padding: 15px;
+}
+
+.corpoForm div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 7px;
+    margin: 2px;
+}
+
+.corpoForm div input {
+    height: 25px;
+    width: 25%;
+}
+
+.sessaoBotoesForm {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+    margin: 10px;
+}

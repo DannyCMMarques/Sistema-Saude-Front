@@ -3,16 +3,17 @@ import styles from "./ConsultaForm.module.css";
 import * as z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import Botoes from "./../BotoesComponentes/Botoes";
+import Botoes from "../BotoesComponentes/Botoes";
 import serviceConsultas from "../../service/serviceConsultas";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import ContainerMaster from "../../components/container";
+import ContainerMaster from "../container";
 import servicePacientes from "../../service/servicePacientes";
 import { Search } from "lucide-react";
 import { ConsultaContext } from "../../context/ConsultaContext";
 import { useLocation } from "react-router-dom";
+import SideMenu from "../sideMenu";
 
 const errorValidator = (data) =>
   toast(`${data}`, {
@@ -40,11 +41,38 @@ const successValidation = (data) =>
     theme: "light",
   });
 
+const ConsultaForm = ({ type }) => {
+  const location = useLocation();
+  const pathParts = location.pathname.split("/").filter((part) => part);
+  const [dataCon, setDataCon] = useState({});
+  const [exibirFiltro, setExibirFiltro] = useState(false);
 
+  let mode = "registrar";
+  let id = null;
 
+  if (pathParts.length === 3 && pathParts[1] === "editar") {
+    mode = "editar";
+    id = pathParts[2];
+  } else if (pathParts.length === 3 && pathParts[1] === "exibir") {
+    mode = "exibir";
+    id = pathParts[2];
+  }
+  if (pathParts.length === 2 && pathParts[1] === "registrar") {
+    mode = "registrar";
+    id = "";
+  }
 
-const ConsultaForm = () => {
- const validationSchemaLogin = z.object({
+  const { tipoForm, setTipoForm } = useContext(ConsultaContext);
+
+  const [mudanca, setMudanca] = useState(true);
+
+  const mudarSessao = () => {
+    setMudanca(!mudanca);
+  };
+
+  const [resultado, setResultadoNome] = useState("");
+
+  const validationSchemaLogin = z.object({
     diagnostico: z.string(),
     queixas: z.string(),
     historico: z.string(),
@@ -57,76 +85,26 @@ const ConsultaForm = () => {
     pressaoS: z.union([z.number(), z.string().regex(/^\d*$/)]).optional(),
     temperatura: z.union([z.number(), z.string().regex(/^\d*$/)]).optional(),
     observacoes: z.string(),
-    observacoes2: z.string().optional(),
-    FR: z.union([z.number(), z.string().regex(/^\d*$/)]).optional(),
-    FC: z.union([z.number(), z.string().regex(/^\d*$/)]).optional(),
+    fr: z.union([z.number(), z.string().regex(/^\d*$/)]).optional(),
+    fc: z.union([z.number(), z.string().regex(/^\d*$/)]).optional(),
     id_paciente: z.string(),
+    nome_medico: z.string(),
   });
 
- const {
+  const {
     register,
     handleSubmit,
     formState: { errors },
     reset,
-    clearErrors,
-    setValue
+    setValue,
   } = useForm({
     resolver: zodResolver(validationSchemaLogin),
-    defaultValues: {
-      diagnostico: "",
-      queixas: "",
-      historico: "",
-      historicopassado: "",
-      quais: "",
-      antecendentes: "",
-      peso: "",
-      altura: "",
-      imc: "",
-      pressaoD: "",
-      pressaoS: "",
-      temperatura: "",
-      observacoes: "",
-      observacoes2: "",
-    },
   });
 
-
-
-  const location = useLocation();
-  const pathParts = location.pathname.split("/").filter((part) => part);
-
-//   const [mode,setMode]= useState("")
-//  const [id,setId] =useState("")
-let mode = ""
-let id = ""
-if (pathParts.length >=3 && pathParts[1] === "editar") {
-    mode = "editar"
-    id = pathParts[2]
-    console.log(id)
-  } else if (pathParts.length === 3 && pathParts[1] === "exibir") {
-   mode= "exibir";
-    id=pathParts[2]
-  } else {
-    mode ="registrar";
-    id=""
-  }
-  
-  const [resultado, setResultado] = useState("");
-   const [mudanca, setMudanca] = useState(true);
-
-  const mudarSessao = () => {
-    setMudanca(!mudanca);
-  };
   const useServiceConsultas = serviceConsultas();
   const usePacienteService = servicePacientes();
 
-  //  const [dataCon, setDataCon] = useState([])
-
-  // const { tipoForm, setTipoForm } = useContext(ConsultaContext);
-  const [formData, setFormData] = useState("");
- 
-
-  const { isPending, isError, data, error, refetch } = useQuery({
+  const { data } = useQuery({
     queryKey: ["getPacientes"],
     queryFn: async () => {
       const data = await usePacienteService.getPacientes();
@@ -134,24 +112,30 @@ if (pathParts.length >=3 && pathParts[1] === "editar") {
     },
     enabled: true,
   });
+
+  const { data: consultaData, refetch: refetchConsulta } = useQuery({
+    queryKey: ["getConsultasId", id],
+    queryFn: async () => {
+      if (id !== null) {
+        const dataConsulta = await useServiceConsultas.getConsultasId(id);
+        setDataCon(dataConsulta.data[0]);
+        for (const key in dataConsulta.data[0]) {
+          setValue(key, dataConsulta.data[0][key]);
+        }
+        return dataConsulta.data;
+      }
+    },
+    enabled: !!id,
+  });
+
   const nomesFiltrados =
     data?.data.pacientes.filter((paciente) =>
       paciente.nome.toLowerCase().includes(resultado.toLowerCase())
     ) || [];
 
-    const { isPendingCon, isErrorCon, dataCon, errorCon, refetchCon } = useQuery({
-      queryKey: ["getConsultasId"],
-      queryFn: async () => {
-        const dataCon = await useServiceConsultas.getConsultasId(id);
-        return dataCon;
-      },
-      enabled: true,
-    });
- console.log(dataCon)
-  const fazerRegistroConsultas = useMutation({
-    mutationFn: (payload) => useServiceConsultas.registrarConsulta(payload, payload.id_consulta),
-
-    // id ===null    : useServiceConsultas.editarConsultas(payload, payload.id_consulta),
+  const fazerRegistro = useMutation({
+    mutationFn: (payload) =>
+      useServiceConsultas.registrarConsulta(payload, payload.id_paciente),
     onSuccess: (response) => {
       if (response) {
         successValidation("Consulta feita com sucesso!");
@@ -159,24 +143,19 @@ if (pathParts.length >=3 && pathParts[1] === "editar") {
     },
     onError: (err) => {
       console.log(err);
-      errorValidator(err.data.msg ? err.data.msg : err.data.error);
     },
   });
-
   const editarConsultas = useMutation({
-    mutationFn: (payload) =>
-      useServiceConsultas.editarConsultas(payload, payload.id_consulta),
+    mutationFn: (payload) => useServiceConsultas.editarConsultas(payload, id),
+    onSuccess: (response) => {
+      successValidation("Edição feita com sucesso!");
+    },
     onError: (err) => {
       console.log(err);
     },
   });
 
- 
-
-  // so vc agora jogar os valores assim
-
   const onSubmit = (data) => {
-    console.log(data);
     const datas = {
       ...data,
       imc: parseInt(data.imc),
@@ -185,34 +164,27 @@ if (pathParts.length >=3 && pathParts[1] === "editar") {
       pressaoS: parseInt(data.pressaoS),
       temperatura: parseInt(data.temperatura),
       altura: parseInt(data.altura),
-      fr: parseInt(data.FR),
-      fc: parseInt(data.FC),
+      fr: parseInt(data.fr),
+      fc: parseInt(data.fc),
       id_paciente: parseInt(data.id_paciente),
     };
-    mode === "registrar" ?  fazerRegistroConsultas.mutate(datas) : 
-    mode === 'editar' ? editarConsultas.mutate(datas, datas.id_consulta) : ""
-   
-    setFormData(datas);
-    console.log(formData);
-  // reset();
+    if (mode === "editar") {
+      editarConsultas.mutate(datas);
+    } else if (mode === "registrar") {
+      fazerRegistro.mutate(datas);
+      reset();
+    } else {
+      return datas;
+    }
   };
 
-  useEffect(() => {
-    if (formData && mode === "editar") {
-       reset(dataCon);
-    }
-  }, [formData, mode]);
-console.log(formData);
-//  useEffect(() => {
-  
-//     mode === "editar" ? editarConsultas.mutate(formData, formData.id_consulta) : 
-//     mode === "exibir" ? 
-//     mode === ' editar' ? console.log("AHHHHHHHHHH") : ""
-//   }, [tipoForm, data]);
-
+  const handleExibirFiltro = () => {
+    setExibirFiltro(!exibirFiltro);
+  };
 
   return (
     <ContainerMaster>
+      <SideMenu />
       <div className={styles.consultaForm}>
         <ToastContainer
           position="top-center"
@@ -226,75 +198,101 @@ console.log(formData);
           pauseOnHover
           theme="light"
         />
-        <div className={styles.pesquisarNome}>
-          <input
-            type="text"
-            placeholder="Buscar Paciente"
-            onChange={(e) => setResultado(() => e.target.value)}          />
-          <p className={styles.icon_pesquisarNome}>
-            <Search />
-          </p>
+
+
+         <div className={styles.pesquisarNome}>
+          {exibirFiltro ? (
+            <div className={styles.containerPesquisar}>
+              <input
+                type="text"
+                placeholder="Buscar Paciente"
+                onChange={(e) => setResultadoNome(e.target.value)}
+                className={styles.input}
+              />
+              <span className={styles.icon}>
+                <Search size={20} />
+              </span>
+            </div>
+          ) : (
+            ""
+          )}
         </div>
         <div className={styles.container}>
           <form
             className={styles.formConsultas}
             onSubmit={handleSubmit(onSubmit)}
           >
-            {mudanca === true ? (
+            {mudanca ? (
               <>
-                <div style={{ display: "flex" }}>
-                  <div className={styles.namePaciente}>
-                    <label htmlFor="id_paciente">Nome do Paciente: </label>
-                    <select
-                    
-                      defaultValue={dataCon?.id_paciente || ""}
-                      {...register("id_paciente")}
-                      
-                    >
-                      {nomesFiltrados.map((paciente) => (
-                        <option
-                          value={paciente.id_paciente}
-                          key={paciente.id_paciente}
-                        >
-                          {paciente.nome}
-                        </option>
-                      ))}
-                    </select>
+                <div className={styles.containerSessao1}>
+                  <div className={styles.nomePacMedico}>
+                    <label htmlFor="id_paciente">
+                      Nome do Paciente:
+                      <button
+                        className={styles.buttonSearch}
+                        onClick={handleExibirFiltro}
+                      >
+                        <Search size={15} />
+                      </button>
+                    </label>
+                    <div style={{ width: "100%" }}>
+                      <select
+                        {...register("id_paciente")}
+                        readOnly={mode === "exibir"}
+                        onChange={(e) => console.log(e.target.value)}
+                      >
+                        {nomesFiltrados.length === 0 ? (
+                          <option value="null"> Nome não Encontrado</option>
+                        ) : (
+                          nomesFiltrados.map((paciente) => (
+                            <option
+                              value={paciente.id_paciente}
+                              key={paciente.id_paciente}
+                            >
+                              {paciente.nome}
+                            </option>
+                          ))
+                        )}
+                      </select>
+                    </div>
                   </div>
                   <div className={styles.nameMedico}>
                     <label htmlFor="id_paciente">Nome do Médico(a): </label>
-                    <input type="text" />
+                    <input
+                      type="text"
+                      readOnly={mode === "exibir"}
+                      {...register("nome_medico")}
+                    />
                   </div>
                 </div>
-
                 <div className={styles.sessao1}>
                   <div className={styles.formGrupoConsulta}>
                     <label htmlFor="diagnostico">Diagnóstico Clínico</label>
                     <textarea
+                      readOnly={mode === "exibir"}
                       id="diagnostico"
                       rows="7"
                       cols="50"
                       {...register("diagnostico")}
-                      defaultValue={dataCon?.diagnostico || ""}
                     />
                   </div>
                   <div className={styles.formGrupoConsulta}>
                     <label htmlFor="queixas">Queixas principais</label>
                     <textarea
+                      readOnly={mode === "exibir"}
                       id="queixas"
                       rows="7"
                       cols="50"
-                      defaultValue={dataCon?.queixas || ""}
                       {...register("queixas")}
                     />
                   </div>
                   <div className={styles.formGrupoConsulta}>
                     <label htmlFor="historico">Histórico de doença</label>
                     <textarea
+                      readOnly={mode === "exibir"}
                       id="historico"
                       rows="7"
                       cols="50"
-                      defaultValue={dataCon?.historico || ""}
                       {...register("historico")}
                     />
                   </div>
@@ -303,30 +301,30 @@ console.log(formData);
                       Hist. de doença pregressa
                     </label>
                     <textarea
+                      readOnly={mode === "exibir"}
                       id="historicopassado"
                       rows="7"
                       cols="50"
-                      defaultValue={dataCon?.historicopassado || ""}
                       {...register("historicopassado")}
                     />
                   </div>
                   <div>
                     <label htmlFor="quais">Já realizou alguma cirurgia?</label>
                     <textarea
+                      readOnly={mode === "exibir"}
                       id="quais"
                       rows="7"
                       cols="50"
-                      defaultValue={dataCon?.quais || ""}
                       {...register("quais")}
                     />
                   </div>
                   <div>
                     <label htmlFor="observacoes">Observações</label>
                     <textarea
+                      readOnly={mode === "exibir"}
                       id="observacoes"
                       rows="7"
                       cols="50"
-                      defaultValue=""
                       {...register("observacoes")}
                     />
                   </div>
@@ -340,45 +338,75 @@ console.log(formData);
             ) : (
               <>
                 <div className={styles.sessao2}>
-                  <div>
+                  <div className={styles.formGrupoConsulta}>
                     <label htmlFor="peso">Peso</label>
-                    <input id="peso" type="number" {...register("peso")} />
+                    <input
+                      id="peso"
+                      type="number"
+                      {...register("peso")}
+                      readOnly={mode === "exibir"}
+                    />
                   </div>
-                  <div>
+                  <div className={styles.formGrupoConsulta}>
                     <label htmlFor="altura">Altura</label>
-                    <input id="altura" type="number" {...register("altura")} />
+                    <input
+                      id="altura"
+                      type="number"
+                      {...register("altura")}
+                      readOnly={mode === "exibir"}
+                    />
                   </div>
-                  <div>
+                  <div className={styles.formGrupoConsulta}>
                     <label htmlFor="imc">IMC</label>
-                    <input id="imc" type="number" {...register("imc")} />
+                    <input
+                      id="imc"
+                      type="number"
+                      {...register("imc")}
+                      readOnly={mode === "exibir"}
+                    />
                   </div>
-                  <div>
+                  <div className={styles.formGrupoConsulta}>
                     <label htmlFor="temperatura">Temperatura</label>
                     <input
                       id="temperatura"
                       type="number"
                       {...register("temperatura")}
+                      readOnly={mode === "exibir"}
                     />
                   </div>
-                  <div>
-                    <label htmlFor="FR">Frequência Respiratória</label>
-                    <input id="FR" type="number" {...register("FR")} />
+                  <div className={styles.formGrupoConsulta}>
+                    <label htmlFor="Frequência Respiratória">
+                      Frequência Respiratória
+                    </label>
+                    <input
+                      id="FR"
+                      type="number"
+                      {...register("fr")}
+                      readOnly={mode === "exibir"}
+                    />
                   </div>
-                  <div>
+                  <div className={styles.formGrupoConsulta}>
                     <label htmlFor="FC">Frequência Cardíaca</label>
-                    <input id="FC" type="number" {...register("FC")} />
+                    <input
+                      id="FC"
+                      type="number"
+                      {...register("fc")}
+                      readOnly={mode === "exibir"}
+                    />
                   </div>
-                  <div>
+                  <div className={styles.formGrupoConsulta}>
                     <label htmlFor="pressaoS">Pressão Sistólica</label>
                     <input
                       id="pressaoS"
                       type="number"
                       {...register("pressaoS")}
+                      readOnly={mode === "exibir"}
                     />
                   </div>
-                  <div>
+                  <div className={styles.formGrupoConsulta}>
                     <label htmlFor="pressaoD">Pressão Diastólica</label>
                     <input
+                      readOnly={mode === "exibir"}
                       id="pressaoD"
                       type="number"
                       {...register("pressaoD")}
@@ -395,11 +423,23 @@ console.log(formData);
                       Voltar
                     </Botoes>
                   </div>
-                  <div>
-                    <Botoes type="submit" cor="branco" background="azul">
-                      Salvar Alterações
-                    </Botoes>
-                  </div>
+                  {
+                    <div>
+                      <Botoes type="submit" cor="branco" background="azul">
+                        {mode === "exibir" ? (
+                          <a
+                            href="/consultas"
+                            style={{ textDecoration: "none", color: "white" }}
+                          >
+                            {" "}
+                            Listar Consultas{" "}
+                          </a>
+                        ) : (
+                          "Salvar Alterações"
+                        )}
+                      </Botoes>
+                    </div>
+                  }
                 </div>
               </>
             )}

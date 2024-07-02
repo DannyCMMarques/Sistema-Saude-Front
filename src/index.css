@@ -19,10 +19,8 @@ a {
   text-emphasis: none;
 }
 
-.rdt_TableBody{
+.rdt_TableBody {
   display: flex;
   flex-direction: column;
   width: 100% important;
 }
-
-

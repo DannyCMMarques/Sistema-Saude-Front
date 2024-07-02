@@ -11,7 +11,7 @@ const ContainerMaster = ({ children }) => {
 
   useEffect(() => {
     const calculateStyle = () => {
-      const sideMenuWidth = isOpen ? 100 : 330;
+      const sideMenuWidth = isOpen ? 100 : 380;
       const contentWidth = window.innerWidth - sideMenuWidth;
       const leftOffset = (window.innerWidth - contentWidth) / 4;
       setContainerStyle({

@@ -1,42 +1,3 @@
-/* .container {
-   box-shadow:  0 9px 23px rgba(0, 0, 0, 0.09), 0 5px 5px rgba(0, 0, 0, 0.06) !important;
-}
-
-.tabela {
-  width: 10px;
-}
-
-.tabelaCabecalho {
-  height: 50px;
-  background-color: #e9ecef;
-  border: #5a3514 4px solid;
-  color: #495057;
-  border-color: #dee2e6;
-  font-size: 16px;
-  font-size: 14px;
-}
-
-.tabelaCabecalho th {
-  padding: 13px 9px 12px;
-  text-align: start;
-  border-bottom: 2px solid #dee2e6;
-}
-
-.tabelaCorpo {
-  background-color: #ffffff;
-  color: #72848c;
-  font-size: 15px;
-  height: 40px;
-}
-
-.tabelaCorpo td {
-  padding: 13px 9px 12px;
-  text-align: start;
-  font-weight: 500;
-  border: white 1px solid;
-} */
-
-
 .jaZrIV {
   display: flex;
   flex-direction: column;
@@ -44,50 +5,52 @@
 }
 
 
-.iconesTabela{
-display: flex;
-justify-content: space-between;
-align-items: center;
-margin:0px
-
+.iconesTabela {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 0px
 }
+
 .buttonIconEdit,
 .buttonIconExibir,
-.buttonIconDelete{
+.buttonIconDelete {
   width: 100%;
-  margin-right:2px;
+  margin-right: 2px;
   height: 30px;
   padding: 4px;
   border-radius: 5px;
-  color:rgb(0, 0, 0);
+  color: rgb(0, 0, 0);
   display: flex;
   align-items: center;
   font-size: 1px;
 }
-.buttonIconDelete{
-  background-color:#fe7171c7;
+
+.buttonIconDelete {
+  background-color: #fe7171c7;
 }
-.buttonIconEdit{
+
+.buttonIconEdit {
   background-color: #0000ff87;
 }
-.buttonIconExibir{
+
+.buttonIconExibir {
   background-color: #abababbf;
 }
 
-.corpo:hover{
-  background-color: #e9ecef; 
-     cursor: pointer;
+.corpo:hover {
+  background-color: #e9ecef;
+  cursor: pointer;
 }
 
-.buttonSearch{
-    background: linear-gradient(to right, #0bace0, #2cd3c7);
-    width:50%;
-    border-radius: 5px;
-    padding:2px;
-    color:white;
-    height:40px;
-    margin:0px;
+.buttonSearch {
+  background: linear-gradient(to right, #0bace0, #2cd3c7);
+  width: 50%;
+  border-radius: 5px;
+  padding: 2px;
+  color: white;
+  height: 40px;
+  margin: 0px;
 
-    min-width:50px;
+  min-width: 50px;
 }
-

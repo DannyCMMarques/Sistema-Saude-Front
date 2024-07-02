@@ -1,4 +1,4 @@
-import apiInterceptor from './../utils/shared/apiInterceptor';
+import apiInterceptor from "./../utils/shared/apiInterceptor";
 
 const servicePacientes = () => {
   const api = apiInterceptor();
@@ -22,8 +22,7 @@ const servicePacientes = () => {
     return api.delete(`/paciente/deletarPaciente/${id}`);
   }
 
-
-  return { registrar, editar, getPacientes, deletarPacientes,getPacientesID };
-}
+  return { registrar, editar, getPacientes, deletarPacientes, getPacientesID };
+};
 
 export default servicePacientes;
