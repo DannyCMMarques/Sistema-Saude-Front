@@ -68,10 +68,11 @@ O objetivo deste projeto é desenvolver um sistema completo para gerenciar consu
 
 🌐 [Sistema Medical Plus](https://drive.google.com/drive/folders/1QKF3R5o980UdxxGsULXXCmbG8DFYX2JE?usp=drive_link) 🌐
 
+
 ## 💬 Feedbacks e Aprendizados
 
 Estou sempre aberto a feedbacks e sugestões de melhorias. Acredito que o aprendizado contínuo é fundamental para a evolução como desenvolvedor, e estou ansioso para aplicar esses conhecimentos em projetos futuros.
 
-🔗 [Meu LinkedIn](https://www.linkedin.com/in/danny-marques/)
+🔗 [Veja mais sobre esse projeto no meu LinkedIn](https://www.linkedin.com/posts/danny-marques_react-api-javascript-activity-7214272030085439488-uzp6?utm_source=share&utm_medium=member_desktop)
 
 🤍 Obrigado por visitar e por permitir que eu compartilhe este projeto! 🤍
